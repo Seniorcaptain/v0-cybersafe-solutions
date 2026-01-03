@@ -7,12 +7,9 @@ import { Shield, Menu, X, Phone, Mail, ExternalLink } from "lucide-react"
 import { useNotifications } from "@/components/notification-system"
 
 const navigationLinks = [
-  { href: "#services", label: "Services" },
-  { href: "#onboarding", label: "Get Started" },
-  { href: "#case-studies", label: "Case Studies" },
-  { href: "#team", label: "Team" },
   { href: "#threat-feed", label: "Threat Intel" },
-  { href: "#blog", label: "Insights" },
+  { href: "#experts", label: "Experts" },
+  { href: "#quote-calculator", label: "Calculator" },
   { href: "#contact", label: "Contact" },
 ]
 
@@ -81,40 +78,32 @@ export default function Navigation() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-slate-900/95 backdrop-blur-md border-b border-slate-700/50 shadow-lg" : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled ? "bg-white/80 backdrop-blur-xl border-b border-gray-100/50" : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
+      <div className="max-w-[1200px] mx-auto px-6">
+        <div className="flex items-center justify-between h-14 md:h-16">
+          {/* Simplified Apple-style logo and navigation layout */}
           <button
             onClick={() => scrollToSection("#hero")}
-            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+            className="flex items-center gap-2 hover:opacity-70 transition-opacity"
           >
-            <div className="p-2 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg">
-              <Shield className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-white">Digital Asset Defenders</h1>
-              <p className="text-xs text-cyan-400 hidden sm:block">Enterprise Security</p>
-            </div>
+            <Shield className="w-5 h-5 text-[#990012]" />
+            <h1 className="text-sm font-bold tracking-[0.1em] text-gray-900">DIGITAL ASSET DEFENDERS</h1>
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-10">
             {navigationLinks.map((link) => (
               <button
                 key={link.href}
                 onClick={() => scrollToSection(link.href)}
-                className={`text-slate-300 hover:text-cyan-400 transition-colors duration-200 font-medium relative ${
-                  activeSection === link.href.substring(1) ? "text-cyan-400" : ""
+                className={`text-[12px] font-medium tracking-tight transition-all duration-300 ${
+                  activeSection === link.href.substring(1) ? "text-[#990012]" : "text-gray-500 hover:text-black"
                 }`}
               >
                 {link.label}
-                {activeSection === link.href.substring(1) && (
-                  <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-cyan-400 rounded-full" />
-                )}
               </button>
             ))}
           </div>
@@ -122,49 +111,36 @@ export default function Navigation() {
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-4">
             <Button
-              variant="outline"
-              size="sm"
-              className="border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 bg-transparent"
-              onClick={handleEmergencyCall}
+              className="bg-[#990012] hover:bg-[#7a000e] text-white rounded-full px-6 h-8 text-[12px] font-medium transition-all"
+              onClick={() => scrollToSection("#quote-calculator")}
             >
-              <Phone className="w-4 h-4 mr-2" />
-              Emergency
-            </Button>
-            <Button
-              size="sm"
-              className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700"
-              onClick={() => scrollToSection("#onboarding")}
-            >
-              Free Assessment
+              Get Quote
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="lg:hidden text-white hover:bg-slate-800">
+              <Button variant="ghost" size="icon" className="lg:hidden text-gray-900 hover:bg-gray-100">
                 <Menu className="w-6 h-6" />
                 <span className="sr-only">Open menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-full sm:w-80 bg-slate-900 border-slate-700 p-0">
+            <SheetContent side="right" className="w-full sm:w-80 bg-white border-l border-gray-100 p-0">
               <div className="flex flex-col h-full">
                 {/* Mobile Header */}
-                <div className="flex items-center justify-between p-6 border-b border-slate-700">
+                <div className="flex items-center justify-between p-6 border-b border-gray-100">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg">
-                      <Shield className="w-5 h-5 text-white" />
-                    </div>
+                    <Shield className="w-5 h-5 text-[#990012]" />
                     <div>
-                      <h2 className="text-lg font-bold text-white">Digital Asset Defenders</h2>
-                      <p className="text-xs text-cyan-400">Enterprise Security</p>
+                      <h2 className="text-sm font-bold tracking-tight text-gray-900">DIGITAL ASSET DEFENDERS</h2>
                     </div>
                   </div>
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-slate-400 hover:text-white hover:bg-slate-800"
+                    className="text-gray-500 hover:text-black"
                   >
                     <X className="w-5 h-5" />
                   </Button>
@@ -179,40 +155,33 @@ export default function Navigation() {
                         onClick={() => scrollToSection(link.href)}
                         className={`flex items-center w-full px-4 py-3 text-left rounded-lg transition-all duration-200 group ${
                           activeSection === link.href.substring(1)
-                            ? "text-cyan-400 bg-cyan-400/10"
-                            : "text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50"
+                            ? "text-[#990012] bg-[#990012]/5"
+                            : "text-gray-600 hover:text-black hover:bg-gray-50"
                         }`}
-                        style={{ animationDelay: `${index * 50}ms` }}
                       >
-                        <span className="font-medium">{link.label}</span>
-                        <div
-                          className={`ml-auto w-0 h-2 bg-cyan-400 rounded-full transition-all duration-200 ${
-                            activeSection === link.href.substring(1) ? "w-2" : "group-hover:w-2"
-                          }`}
-                        />
+                        <span className="text-sm font-medium">{link.label}</span>
                       </button>
                     ))}
                   </div>
 
                   {/* Mobile Contact Info */}
                   <div className="mt-8 px-6">
-                    <div className="p-4 bg-slate-800/50 rounded-lg border border-slate-700">
-                      <h3 className="text-white font-semibold mb-3">24/7 Support</h3>
+                    <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                      <h3 className="text-gray-900 text-xs font-bold tracking-widest uppercase mb-3">Support</h3>
                       <div className="space-y-3">
                         <button
                           onClick={handleEmergencyCall}
-                          className="flex items-center gap-3 text-slate-300 hover:text-cyan-400 transition-colors w-full"
+                          className="flex items-center gap-3 text-gray-600 hover:text-[#990012] transition-colors w-full"
                         >
-                          <Phone className="w-4 h-4 text-cyan-400" />
-                          <span className="text-sm">+1 (555) 123-SAFE</span>
-                          <ExternalLink className="w-3 h-3 ml-auto" />
+                          <Phone className="w-4 h-4 text-[#990012]" />
+                          <span className="text-sm font-medium">+1 (555) 123-SAFE</span>
                         </button>
                         <button
                           onClick={handleEmailContact}
-                          className="flex items-center gap-3 text-slate-300 hover:text-cyan-400 transition-colors w-full"
+                          className="flex items-center gap-3 text-gray-600 hover:text-[#990012] transition-colors w-full"
                         >
-                          <Mail className="w-4 h-4 text-cyan-400" />
-                          <span className="text-sm">hello@digitalassetdefenders.com</span>
+                          <Mail className="w-4 h-4 text-[#990012]" />
+                          <span className="text-sm font-medium">hello@digitalassetdefenders.com</span>
                           <ExternalLink className="w-3 h-3 ml-auto" />
                         </button>
                       </div>
@@ -221,15 +190,15 @@ export default function Navigation() {
 
                   {/* Mobile Security Badges */}
                   <div className="mt-6 px-6">
-                    <h3 className="text-white font-semibold mb-3">Certifications</h3>
+                    <h3 className="text-gray-900 text-xs font-bold tracking-widest uppercase mb-3">Certifications</h3>
                     <div className="grid grid-cols-2 gap-3">
                       {["ISO 27001", "SOC 2", "PCI DSS", "HIPAA"].map((cert) => (
                         <div
                           key={cert}
-                          className="flex items-center justify-center p-3 bg-slate-800/30 rounded-lg border border-slate-700 hover:border-cyan-400/50 transition-colors"
+                          className="flex items-center justify-center p-3 bg-white rounded-xl border border-gray-100"
                         >
-                          <Shield className="w-4 h-4 text-cyan-400 mr-2" />
-                          <span className="text-xs text-slate-300">{cert}</span>
+                          <Shield className="w-3 h-3 text-[#990012] mr-2" />
+                          <span className="text-[10px] font-bold text-gray-600 tracking-tight">{cert}</span>
                         </div>
                       ))}
                     </div>
@@ -237,12 +206,12 @@ export default function Navigation() {
                 </div>
 
                 {/* Mobile CTA Buttons */}
-                <div className="p-6 border-t border-slate-700 space-y-3">
+                <div className="p-6 border-t border-gray-100 space-y-3">
                   <Button
-                    className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white"
-                    onClick={() => scrollToSection("#onboarding")}
+                    className="w-full bg-[#990012] hover:bg-[#7a000e] text-white rounded-full"
+                    onClick={() => scrollToSection("#quote-calculator")}
                   >
-                    Get Free Assessment
+                    Get Quote
                   </Button>
                   <Button
                     variant="outline"

@@ -4,32 +4,27 @@
 
 @layer base {
   :root {
-    /* Updated to white and wine red (#990012) theme */
-    --background: 0 0% 100%;
-    --foreground: 154 40% 6%;
+    /* Updated design tokens for Apple-style minimalism: Pure white background, high-contrast text, and #990012 accents */
+    --background: 0 0% 100%; /* Pure white */
+    --foreground: 0 0% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 154 40% 6%;
+    --card-foreground: 0 0% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 154 40% 6%;
-    --primary: 354 98% 30%;
+    --popover-foreground: 0 0% 10%;
+    --primary: 353 100% 30%; /* #990012 */
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 95%;
-    --secondary-foreground: 354 98% 30%;
-    --muted: 0 0% 85%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 10%;
+    --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
-    --accent: 354 98% 30%;
+    --accent: 353 100% 30%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 354 98% 30%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 90%;
-    --input: 0 0% 98%;
-    --ring: 354 98% 30%;
-    --radius: 0.5rem;
-    --chart-1: 354 98% 30%;
-    --chart-2: 354 85% 35%;
-    --chart-3: 354 90% 32%;
-    --chart-4: 354 95% 28%;
-    --chart-5: 354 92% 31%;
+    --border: 0 0% 92%;
+    --input: 0 0% 92%;
+    --ring: 353 100% 30%;
+    --radius: 0.75rem; /* Slightly rounded for premium modern feel */
   }
 
   .dark {
@@ -71,8 +66,8 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    /* Switched to a more premium font-stack and cleaner base styles */
+    @apply bg-background text-foreground font-sans antialiased tracking-tight;
   }
 }
 
@@ -107,20 +102,29 @@
   }
 }
 
-/* Updated scrollbar to wine red */
+/* Custom styles for the high-end security aesthetic */
+.hero-gradient {
+  background: radial-gradient(circle at top right, rgba(153, 0, 18, 0.05), transparent),
+    radial-gradient(circle at bottom left, rgba(153, 0, 18, 0.02), transparent);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Updated scrollbar to match wine red */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f5f5f5;
+  background: hsl(var(--background));
 }
 
 ::-webkit-scrollbar-thumb {
   background: #990012;
-  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6b000d;
+  background: #7a000e;
 }
