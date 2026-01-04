@@ -13,7 +13,7 @@ export default function HeroSection() {
 
         <h1 className="text-5xl md:text-[92px] font-bold text-gray-950 mb-8 tracking-[-0.03em] leading-[1] opacity-0 animate-in [animation-fill-mode:forwards] [animation-delay:400ms]">
           Defend Your <br className="hidden md:block" />
-          <span className="text-gray-400">Digital Legacy.</span>
+          <span className="text-gray-400">Digital Infrastructure.</span>
         </h1>
 
         <p className="text-xl md:text-2xl mb-12 text-gray-500 max-w-2xl mx-auto font-medium leading-relaxed opacity-0 animate-in [animation-fill-mode:forwards] [animation-delay:600ms]">
