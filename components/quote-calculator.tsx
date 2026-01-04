@@ -6,23 +6,43 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Calculator, DollarSign, CheckCircle, Download, Mail } from "lucide-react"
+import { Calculator, Download, Mail, Tag, Info } from "lucide-react"
 import { useNotifications } from "@/components/notification-system"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 
 const servicePricing = {
-  "penetration-testing": { base: 600000, multiplier: 1.5 },
-  "compliance-audit": { base: 960000, multiplier: 1.8 },
-  "soc-service": { base: 1440000, multiplier: 2.0 },
-  "incident-response": { base: 1800000, multiplier: 1.2 },
-  "cloud-security": { base: 1200000, multiplier: 1.6 },
-  "virtual-ciso": { base: 2400000, multiplier: 2.5 },
+  "penetration-testing": { base: 650000, description: "External & Internal Infra" },
+  "compliance-audit": { base: 1100000, description: "Standard Frameworks" },
+  "soc-service": { base: 1500000, description: "Monthly 24/7 Monitoring" },
+  "incident-response": { base: 1850000, description: "Crisis Management" },
+  "cloud-security": { base: 1300000, description: "Multi-cloud Posture" },
+  "virtual-ciso": { base: 2600000, description: "Strategy & Advisory" },
 }
 
 const sizeMultipliers = {
   small: 1.0,
-  medium: 1.5,
-  large: 2.0,
-  enterprise: 3.0,
+  medium: 1.45,
+  large: 1.9,
+  enterprise: 2.8,
+}
+
+const getApplicableDiscounts = (selectedServices: string[], companySize: string) => {
+  const discounts = []
+
+  // Volume Discount: 3+ services
+  if (selectedServices.length >= 3) {
+    discounts.push({ name: "Multi-Service Bundle", rate: 0.15, reason: "3+ services selected" })
+  }
+
+  // Loyalty/Promotional: Enterprise scale
+  if (companySize === "enterprise") {
+    discounts.push({ name: "Strategic Partnership", rate: 0.1, reason: "Enterprise-wide coverage" })
+  }
+
+  // Limited time promotion
+  discounts.push({ name: "New Client Launch", rate: 0.05, reason: "First-year engagement" })
+
+  return discounts
 }
 
 export default function QuoteCalculator() {
@@ -43,17 +63,28 @@ export default function QuoteCalculator() {
   ]
 
   const calculateQuote = () => {
-    if (!companySize || selectedServices.length === 0) return 0
+    if (!companySize || selectedServices.length === 0) return { subtotal: 0, total: 0, discountsApplied: [] }
 
-    const basePrice = selectedServices.reduce((total, serviceId) => {
+    const subtotal = selectedServices.reduce((total, serviceId) => {
       const service = servicePricing[serviceId as keyof typeof servicePricing]
-      return total + service.base * service.multiplier
+      return total + service.base
     }, 0)
 
     const sizeMultiplier = sizeMultipliers[companySize as keyof typeof sizeMultipliers]
     const urgencyMultiplier = urgency === "urgent" ? 1.3 : 1.0
 
-    return Math.round(basePrice * sizeMultiplier * urgencyMultiplier)
+    const baseTotal = subtotal * sizeMultiplier * urgencyMultiplier
+
+    const discountsApplied = getApplicableDiscounts(selectedServices, companySize)
+    const totalDiscountRate = discountsApplied.reduce((sum, d) => sum + d.rate, 0)
+    const discountAmount = baseTotal * totalDiscountRate
+
+    return {
+      subtotal: Math.round(baseTotal),
+      total: Math.round(baseTotal - discountAmount),
+      discountsApplied,
+      discountAmount: Math.round(discountAmount),
+    }
   }
 
   const handleServiceChange = (serviceId: string, checked: boolean) => {
@@ -87,7 +118,7 @@ export default function QuoteCalculator() {
       ;(window as any).gtag("event", "generate_quote", {
         event_category: "engagement",
         event_label: selectedServices.join(","),
-        value: calculateQuote(),
+        value: calculateQuote().total,
       })
     }
   }
@@ -101,20 +132,22 @@ export default function QuoteCalculator() {
       addNotification({
         type: "success",
         title: "Proposal Generated",
-        message: "Your detailed proposal has been generated. Check your downloads folder.",
+        message: "Your detailed proposal has been generated with all discounts applied.",
         duration: 5000,
       })
 
+      const { total, discountsApplied } = calculateQuote()
       const proposalData = {
         services: selectedServices,
         companySize,
         urgency,
-        quote: calculateQuote(),
+        quote: total,
+        discounts: discountsApplied,
         currency: "KES",
         timestamp: new Date().toISOString(),
       }
 
-      console.log("Proposal data:", proposalData)
+      console.log("[v0] Proposal data generated:", proposalData)
     } catch (error) {
       addNotification({
         type: "error",
@@ -128,37 +161,36 @@ export default function QuoteCalculator() {
   }
 
   const handleEmailQuote = () => {
-    const quote = calculateQuote()
+    const { total, discountsApplied } = calculateQuote()
     const serviceNames = selectedServices.map((id) => services.find((s) => s.id === id)?.name).join(", ")
+    const discountText = discountsApplied.map((d) => `${d.name} (${d.rate * 100}%)`).join(", ")
 
-    const subject = encodeURIComponent("Cybersecurity Quote Request")
+    const subject = encodeURIComponent("Cybersecurity Quote Request - Digital Asset Defenders")
     const body = encodeURIComponent(
-      `Hello,\n\nI'm interested in getting a detailed quote for the following services:\n\n` +
+      `Hello,\n\nI've generated a quote for the following cybersecurity project:\n\n` +
         `Services: ${serviceNames}\n` +
         `Company Size: ${companySize}\n` +
-        `Timeline: ${urgency || "standard"}\n` +
-        `Estimated Quote: KES ${quote.toLocaleString()}\n\n` +
-        `Please provide a detailed proposal.\n\nThank you!`,
+        `Discounts Applied: ${discountText || "None"}\n` +
+        `Final Estimated Quote: KES ${total.toLocaleString()}\n\n` +
+        `Please reach out to discuss the implementation details.\n\nThank you!`,
     )
 
     window.location.href = `mailto:hello@digitalassetdefenders.com?subject=${subject}&body=${body}`
   }
 
-  const quote = calculateQuote()
+  const { subtotal, total, discountsApplied, discountAmount } = calculateQuote()
 
   return (
-    <section id="quote-calculator" className="py-20 bg-red-50">
+    <section id="quote-calculator" className="py-24 bg-white">
       <div className="max-w-4xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">
-            Get Instant Quote
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Calculate estimated pricing for your cybersecurity needs in Kenyan Shillings (KES)
+        <div className="text-center mb-20">
+          <h2 className="text-5xl md:text-6xl font-bold tracking-tight mb-8 text-black">Transparent Pricing</h2>
+          <p className="text-xl text-gray-500 max-w-2xl mx-auto font-light leading-relaxed">
+            Instant, industry-standard estimations tailored to your project scale and complexity.
           </p>
         </div>
 
-        <Card className="bg-white border-red-200">
+        <Card className="bg-white border-0 shadow-2xl shadow-black/5 overflow-hidden rounded-3xl">
           <CardHeader>
             <CardTitle className="text-2xl text-gray-900 flex items-center gap-3">
               <Calculator className="w-6 h-6 text-red-600" />
@@ -286,63 +318,79 @@ export default function QuoteCalculator() {
             </div>
 
             {/* Quote Results */}
-            {showQuote && quote > 0 && (
-              <div className="mt-8 p-6 bg-gradient-to-r from-red-500/10 to-red-600/10 rounded-lg border border-red-400/30 animate-in">
-                <div className="text-center">
-                  <div className="flex items-center justify-center gap-3 mb-4">
-                    <DollarSign className="w-8 h-8 text-red-600" />
-                    <h3 className="text-2xl font-bold text-gray-900">Estimated Quote</h3>
+            {showQuote && total > 0 && (
+              <div className="mt-12 p-10 bg-[#990012]/[0.02] rounded-2xl border border-[#990012]/10 animate-in fade-in slide-in-from-bottom-4">
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between border-b border-gray-100 pb-4">
+                    <span className="text-gray-500 font-medium">Standard Project Base</span>
+                    <span className="text-gray-900 font-semibold">KES {subtotal.toLocaleString()}</span>
                   </div>
 
-                  <div className="text-4xl font-bold text-red-600 mb-4">KES {quote.toLocaleString()}</div>
-
-                  <p className="text-gray-700 mb-6">
-                    This is an estimated quote based on your selections. Final pricing may vary based on specific
-                    requirements.
-                  </p>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <div className="text-center">
-                      <CheckCircle className="w-6 h-6 text-green-600 mx-auto mb-2" />
-                      <p className="text-sm text-gray-700">Free consultation included</p>
+                  {discountsApplied.length > 0 && (
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2 text-[#990012] font-semibold text-sm uppercase tracking-wider">
+                        <Tag className="w-4 h-4" />
+                        Applied Savings
+                      </div>
+                      {discountsApplied.map((discount, idx) => (
+                        <div key={idx} className="flex items-center justify-between text-sm">
+                          <div className="flex items-center gap-2 text-gray-600">
+                            {discount.name}
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger>
+                                  <Info className="w-3.5 h-3.5 text-gray-400" />
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p>{discount.reason}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          </div>
+                          <span className="text-green-600 font-medium">-{discount.rate * 100}%</span>
+                        </div>
+                      ))}
+                      <div className="flex items-center justify-between pt-2 text-green-700 font-bold border-t border-gray-100/50">
+                        <span>Total Savings</span>
+                        <span>-KES {discountAmount.toLocaleString()}</span>
+                      </div>
                     </div>
-                    <div className="text-center">
-                      <CheckCircle className="w-6 h-6 text-green-600 mx-auto mb-2" />
-                      <p className="text-sm text-gray-700">30-day money-back guarantee</p>
-                    </div>
-                    <div className="text-center">
-                      <CheckCircle className="w-6 h-6 text-green-600 mx-auto mb-2" />
-                      <p className="text-sm text-gray-700">24/7 support included</p>
-                    </div>
-                  </div>
+                  )}
 
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button
-                      onClick={handleGetProposal}
-                      disabled={isGeneratingProposal}
-                      className="bg-green-600 hover:bg-green-700 text-white disabled:opacity-50"
-                    >
-                      {isGeneratingProposal ? (
-                        <>
-                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                          Generating...
-                        </>
-                      ) : (
-                        <>
-                          <Download className="w-4 h-4 mr-2" />
-                          Get Detailed Proposal
-                        </>
-                      )}
-                    </Button>
+                  <div className="pt-6 text-center border-t border-gray-100">
+                    <div className="text-sm text-gray-400 uppercase tracking-[0.2em] mb-2">Final Estimated Total</div>
+                    <div className="text-6xl font-bold text-black tracking-tighter mb-8">
+                      KES {total.toLocaleString()}
+                    </div>
 
-                    <Button
-                      onClick={handleEmailQuote}
-                      variant="outline"
-                      className="border-red-600 text-red-600 hover:bg-red-50 bg-white"
-                    >
-                      <Mail className="w-4 h-4 mr-2" />
-                      Email Quote
-                    </Button>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                      <Button
+                        onClick={handleGetProposal}
+                        disabled={isGeneratingProposal}
+                        className="bg-green-600 hover:bg-green-700 text-white disabled:opacity-50"
+                      >
+                        {isGeneratingProposal ? (
+                          <>
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                            Generating...
+                          </>
+                        ) : (
+                          <>
+                            <Download className="w-4 h-4 mr-2" />
+                            Get Detailed Proposal
+                          </>
+                        )}
+                      </Button>
+
+                      <Button
+                        onClick={handleEmailQuote}
+                        variant="outline"
+                        className="border-red-600 text-red-600 hover:bg-red-50 bg-white"
+                      >
+                        <Mail className="w-4 h-4 mr-2" />
+                        Email Quote
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
