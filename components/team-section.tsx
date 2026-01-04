@@ -2,14 +2,52 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { Linkedin, Shield, Activity, Database, Zap } from "lucide-react"
+import { Linkedin, Database, Search, Network, Bot, AlertCircle, Briefcase, Code, Smartphone, Globe } from "lucide-react"
 
 export function TeamSection() {
-  const highlights = [
-    { icon: Shield, label: "CCT Certified", description: "Certified Cybersecurity Technician" },
-    { icon: Zap, label: "SOC Automation", description: "Shuffle SOAR & TheHive Orchestration" },
-    { icon: Database, label: "SIEM Expert", description: "Azure Log Analysis & Monitoring" },
-    { icon: Activity, label: "Incident Response", description: "Detection Lab & Threat Mitigation" },
+  const skills = [
+    {
+      icon: Database,
+      label: "SIEM Implementation & Log Analysis",
+      project: "Azure Log Analytics",
+      description: "Centralized logging and sophisticated threat hunting workflows.",
+    },
+    {
+      icon: Network,
+      label: "Network Traffic Monitoring",
+      project: "Detection Lab",
+      description: "Real-time attack detection and packet-level traffic analysis.",
+    },
+    {
+      icon: Bot,
+      label: "Security Automation (Shuffle SOAR)",
+      project: "SOC Automation",
+      description: "Automated alert orchestration and incident response playbooks.",
+    },
+    {
+      icon: AlertCircle,
+      label: "Incident Response Execution",
+      project: "Threat Mitigation",
+      description: "Strategic planning and rapid containment of security breaches.",
+    },
+    {
+      icon: Briefcase,
+      label: "Case Management (TheHive)",
+      project: "Incident Workflow",
+      description: "Cohesive management of security incidents and investigations.",
+    },
+    {
+      icon: Code,
+      label: "Scripting for Threat Mitigation",
+      project: "Custom Automation",
+      description: "Python and Bash scripting for proactive defense mechanisms.",
+    },
+  ]
+
+  const toolCategories = [
+    { icon: Globe, label: "Network", tools: ["Snort", "Wireshark", "Suricata"] },
+    { icon: Smartphone, label: "Endpoint", tools: ["Sysmon", "Wazuh", "Velociraptor"] },
+    { icon: Search, label: "SIEM", tools: ["ELK Stack", "Splunk", "Azure Sentinel"] },
   ]
 
   return (
@@ -53,25 +91,53 @@ export function TeamSection() {
                 </p>
               </div>
 
-              <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-8">
-                {highlights.map((item, i) => (
-                  <motion.div
-                    key={item.label}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 + 0.5 }}
-                    className="flex items-start gap-4"
-                  >
-                    <div className="mt-1 p-2 rounded-lg bg-neutral-50 text-[#990012]">
-                      <item.icon size={20} />
+              <div className="mt-16">
+                <h4 className="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-8">
+                  Technical Expertise
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-12">
+                  {skills.map((skill, i) => (
+                    <motion.div
+                      key={skill.label}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1 }}
+                      className="group"
+                    >
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="p-2 rounded bg-neutral-50 text-[#990012] group-hover:bg-[#990012] group-hover:text-white transition-colors duration-300">
+                          <skill.icon size={18} />
+                        </div>
+                        <span className="text-xs font-mono text-neutral-400">{skill.project}</span>
+                      </div>
+                      <h5 className="font-semibold text-black mb-1">{skill.label}</h5>
+                      <p className="text-sm text-neutral-500 leading-relaxed">{skill.description}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-16 p-8 bg-neutral-50 rounded-2xl border border-neutral-100">
+                <h4 className="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-6">Security Stack</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+                  {toolCategories.map((cat, i) => (
+                    <div key={cat.label}>
+                      <div className="flex items-center gap-2 mb-4 text-[#990012]">
+                        <cat.icon size={16} />
+                        <span className="text-sm font-bold uppercase tracking-wider">{cat.label}</span>
+                      </div>
+                      <ul className="space-y-2">
+                        {cat.tools.map((tool) => (
+                          <li key={tool} className="text-sm text-neutral-600 flex items-center gap-2">
+                            <span className="w-1 h-1 rounded-full bg-neutral-300" />
+                            {tool}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-black">{item.label}</h4>
-                      <p className="text-sm text-neutral-500">{item.description}</p>
-                    </div>
-                  </motion.div>
-                ))}
+                  ))}
+                </div>
               </div>
 
               <motion.div
