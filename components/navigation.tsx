@@ -60,7 +60,7 @@ export default function Navigation() {
 
   const handleEmergencyCall = () => {
     if (typeof window !== "undefined") {
-      window.location.href = "tel:+15551234567"
+      window.location.href = "tel:+254714749513"
       addNotification({
         type: "info",
         title: "Emergency Response",
@@ -174,7 +174,7 @@ export default function Navigation() {
                           className="flex items-center gap-3 text-gray-600 hover:text-[#990012] transition-colors w-full"
                         >
                           <Phone className="w-4 h-4 text-[#990012]" />
-                          <span className="text-sm font-medium">+1 (555) 123-SAFE</span>
+                          <span className="text-sm font-medium">+254 714749513</span>
                         </button>
                         <button
                           onClick={handleEmailContact}
