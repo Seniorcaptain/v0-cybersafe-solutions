@@ -149,7 +149,7 @@ export default function ContactSection() {
 
   const handleEmailClick = () => {
     if (typeof window !== "undefined") {
-      window.location.href = "mailto:hello@digitalassetdefenders.com"
+      window.location.href = "mailto:Security@digitalassetdefenders.com"
     }
   }
 
@@ -199,7 +199,7 @@ export default function ContactSection() {
                   <div>
                     <p className="text-slate-900 font-medium">Email</p>
                     <p className="text-slate-600 group-hover:text-[#990012] transition-colors">
-                      hello@digitalassetdefenders.com
+                      Security@digitalassetdefenders.com
                     </p>
                   </div>
                 </button>

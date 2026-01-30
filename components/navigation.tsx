@@ -181,7 +181,7 @@ export default function Navigation() {
                           className="flex items-center gap-3 text-gray-600 hover:text-[#990012] transition-colors w-full"
                         >
                           <Mail className="w-4 h-4 text-[#990012]" />
-                          <span className="text-sm font-medium">hello@digitalassetdefenders.com</span>
+                          <span className="text-sm font-medium">Security@digitalassetdefenders.com</span>
                           <ExternalLink className="w-3 h-3 ml-auto" />
                         </button>
                       </div>

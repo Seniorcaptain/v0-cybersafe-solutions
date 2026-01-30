@@ -31,10 +31,22 @@ export const submitForm = async (endpoint: string, data: Record<string, any>): P
     // Log form submission for debugging
     console.log(`Form submitted to ${endpoint}:`, data)
 
+    // Prepare email content
+    const emailSubject = encodeURIComponent(data.subject || "New Contact Form Submission")
+    const emailBody = encodeURIComponent(
+      `Name: ${data.name}\nEmail: ${data.email}\nCompany: ${data.company}\nPhone: ${data.phone}\n\nMessage:\n${data.message}\n\nEncryption Requested: ${data.encrypted ? "Yes" : "No"}`
+    )
+
+    // Send email to Security@digitalassetdefenders.com
+    const mailtoLink = `mailto:Security@digitalassetdefenders.com?subject=${emailSubject}&body=${emailBody}`
+    if (typeof window !== "undefined") {
+      window.location.href = mailtoLink
+    }
+
     return {
       success: true,
       message: "Form submitted successfully! We will contact you within 2 hours.",
-      data: { submissionId: `CS-${Date.now()}` },
+      data: { submissionId: `DAD-${Date.now()}`, recipient: "Security@digitalassetdefenders.com" },
     }
   } catch (error) {
     return {
