@@ -1,146 +1,9 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
-import { Card, CardContent } from "@/components/ui/card"
+import { MapPin, Phone, Mail, Shield } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Checkbox } from "@/components/ui/checkbox"
-import { MapPin, Phone, Mail, Shield, Send, CheckCircle } from "lucide-react"
-import { useNotifications } from "@/components/notification-system"
-import { submitForm, validateEmail, validatePhone, sanitizeInput } from "@/lib/form-utils"
 
-interface ContactFormData {
-  name: string
-  email: string
-  company: string
-  phone: string
-  subject: string
-  message: string
-  encrypted: boolean
-  newsletter: boolean
-}
-
-interface FormErrors {
-  [key: string]: string
-}
-
-export default function ContactSection() {
-  const [formData, setFormData] = useState<ContactFormData>({
-    name: "",
-    email: "",
-    company: "",
-    phone: "",
-    subject: "",
-    message: "",
-    encrypted: false,
-    newsletter: false,
-  })
-
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [errors, setErrors] = useState<FormErrors>({})
-  const { addNotification } = useNotifications()
-
-  const validateForm = (): boolean => {
-    const newErrors: FormErrors = {}
-
-    if (!formData.name.trim()) newErrors.name = "Name is required"
-    if (!formData.email.trim()) newErrors.email = "Email is required"
-    else if (!validateEmail(formData.email)) newErrors.email = "Please enter a valid email"
-    if (!formData.message.trim()) newErrors.message = "Message is required"
-    else if (formData.message.length < 10) newErrors.message = "Message must be at least 10 characters"
-
-    if (formData.phone && !validatePhone(formData.phone)) {
-      newErrors.phone = "Please enter a valid phone number"
-    }
-
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    if (!validateForm()) {
-      addNotification({
-        type: "error",
-        title: "Validation Error",
-        message: "Please fill in all required fields correctly",
-        duration: 4000,
-      })
-      return
-    }
-
-    setIsSubmitting(true)
-
-    // Sanitize form data
-    const sanitizedData = {
-      ...formData,
-      name: sanitizeInput(formData.name),
-      company: sanitizeInput(formData.company),
-      subject: sanitizeInput(formData.subject),
-      message: sanitizeInput(formData.message),
-    }
-
-    try {
-      const result = await submitForm("/api/contact", sanitizedData)
-
-      if (result.success) {
-        setIsSubmitted(true)
-        addNotification({
-          type: "success",
-          title: "Message Sent!",
-          message: "Thank you for contacting us. We will get back to you within 2 hours.",
-          duration: 6000,
-        })
-
-        // Reset form after 3 seconds
-        setTimeout(() => {
-          setIsSubmitted(false)
-          setFormData({
-            name: "",
-            email: "",
-            company: "",
-            phone: "",
-            subject: "",
-            message: "",
-            encrypted: false,
-            newsletter: false,
-          })
-        }, 3000)
-      } else {
-        throw new Error(result.message)
-      }
-    } catch (error) {
-      addNotification({
-        type: "error",
-        title: "Submission Failed",
-        message: "There was an error sending your message. Please try again or call us directly.",
-        duration: 6000,
-      })
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }))
-    }
-  }
-
-  const handleCheckboxChange = (name: string, checked: boolean) => {
-    setFormData((prev) => ({ ...prev, [name]: checked }))
-  }
-
+const ContactSection = () => {
   const handlePhoneCall = () => {
     if (typeof window !== "undefined") {
       window.location.href = "tel:+254714749513"
@@ -229,131 +92,66 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Contact Form */}
+          {/* Direct Contact Actions */}
           <div className="lg:col-span-2">
-            <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] bg-white p-8">
-              <CardContent className="p-0">
-                {isSubmitted ? (
-                  <div className="text-center py-20">
-                    <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <CheckCircle className="w-10 h-10 text-green-500" />
-                    </div>
-                    <h3 className="text-3xl font-bold text-slate-900 mb-3">Message Sent</h3>
-                    <p className="text-slate-600 text-lg">Thank you. Our specialists will contact you shortly.</p>
+            <div className="space-y-8">
+              <div className="text-center mb-12">
+                <h3 className="text-3xl font-semibold text-slate-900 mb-4">Reach Out Directly</h3>
+                <p className="text-lg text-slate-600">Choose your preferred way to connect with our security team.</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Email Card */}
+                <div className="p-10 border border-slate-100 rounded-2xl hover:border-[#990012]/30 hover:shadow-[0_8px_30px_rgb(153,0,18,0.06)] transition-all duration-300">
+                  <div className="w-14 h-14 bg-[#990012]/10 rounded-full flex items-center justify-center mb-6">
+                    <Mail className="w-7 h-7 text-[#990012]" />
                   </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      <div className="space-y-2">
-                        <Label className="text-slate-900 font-medium ml-1">Full Name</Label>
-                        <Input
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          required
-                          className="border-slate-200 focus:border-[#990012] focus:ring-[#990012]/20 h-12 rounded-lg"
-                          placeholder="Name"
-                        />
-                        {errors.name && <p className="text-[#990012] text-xs mt-1">{errors.name}</p>}
-                      </div>
+                  <h4 className="text-xl font-semibold text-slate-900 mb-3">Email Us</h4>
+                  <p className="text-slate-600 mb-6">
+                    Send us a detailed message about your security requirements. We'll respond within 2 hours.
+                  </p>
+                  <div className="w-full bg-slate-100 text-slate-600 py-3 rounded-lg font-semibold text-center">
+                    <Mail className="w-4 h-4 mr-2 inline" />
+                    Email Security Team
+                  </div>
+                  <p className="text-sm text-slate-500 mt-4 text-center">Security@digitalassetdefenders.com</p>
+                </div>
 
-                      <div className="space-y-2">
-                        <Label className="text-slate-900 font-medium ml-1">Email Address</Label>
-                        <Input
-                          name="email"
-                          type="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          required
-                          className="border-slate-200 focus:border-[#990012] focus:ring-[#990012]/20 h-12 rounded-lg"
-                          placeholder="email@company.com"
-                        />
-                        {errors.email && <p className="text-[#990012] text-xs mt-1">{errors.email}</p>}
-                      </div>
-                    </div>
+                {/* Phone Card */}
+                <div className="p-10 border border-slate-100 rounded-2xl hover:border-[#990012]/30 hover:shadow-[0_8px_30px_rgb(153,0,18,0.06)] transition-all duration-300">
+                  <div className="w-14 h-14 bg-[#990012]/10 rounded-full flex items-center justify-center mb-6">
+                    <Phone className="w-7 h-7 text-[#990012]" />
+                  </div>
+                  <h4 className="text-xl font-semibold text-slate-900 mb-3">Call Us</h4>
+                  <p className="text-slate-600 mb-6">
+                    Speak directly with our specialists for immediate consultation on urgent security matters.
+                  </p>
+                  <div className="w-full bg-slate-100 text-slate-600 py-3 rounded-lg font-semibold text-center">
+                    <Phone className="w-4 h-4 mr-2 inline" />
+                    Call Now
+                  </div>
+                  <p className="text-sm text-slate-500 mt-4 text-center">+254 (714) 749-513</p>
+                </div>
+              </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      <div className="space-y-2">
-                        <Label className="text-slate-900 font-medium ml-1">Company</Label>
-                        <Input
-                          name="company"
-                          value={formData.company}
-                          onChange={handleChange}
-                          className="border-slate-200 focus:border-[#990012] focus:ring-[#990012]/20 h-12 rounded-lg"
-                          placeholder="Company"
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label className="text-slate-900 font-medium ml-1">Phone</Label>
-                        <Input
-                          name="phone"
-                          type="tel"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          className="border-slate-200 focus:border-[#990012] focus:ring-[#990012]/20 h-12 rounded-lg"
-                          placeholder="+254..."
-                        />
-                        {errors.phone && <p className="text-[#990012] text-xs mt-1">{errors.phone}</p>}
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label className="text-slate-900 font-medium ml-1">Message</Label>
-                      <Textarea
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        required
-                        rows={6}
-                        className="border-slate-200 focus:border-[#990012] focus:ring-[#990012]/20 rounded-lg resize-none"
-                        placeholder="Tell us about your security needs..."
-                      />
-                    </div>
-
-                    <div className="space-y-4 pt-2">
-                      <div className="flex items-center space-x-3 group">
-                        <Checkbox
-                          id="encrypted"
-                          checked={formData.encrypted}
-                          onCheckedChange={(checked) => handleCheckboxChange("encrypted", checked as boolean)}
-                          className="data-[state=checked]:bg-[#990012] data-[state=checked]:border-[#990012]"
-                        />
-                        <Label htmlFor="encrypted" className="text-slate-600 text-sm cursor-pointer select-none">
-                          Request end-to-end encrypted communication for this request
-                        </Label>
-                      </div>
-                    </div>
-
-                    <Button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full bg-[#990012] hover:bg-[#7a000e] text-white py-6 rounded-lg text-lg font-semibold transition-all duration-300"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                          Establishing Secure Connection...
-                        </>
-                      ) : (
-                        <>
-                          <Send className="w-5 h-5 mr-2" />
-                          Send Message
-                        </>
-                      )}
-                    </Button>
-
-                    <div className="flex items-center justify-center gap-2 text-slate-400 text-xs mt-6">
-                      <Shield className="w-3 h-3" />
-                      Protected by 256-bit SSL encryption
-                    </div>
-                  </form>
-                )}
-              </CardContent>
-            </Card>
+              {/* Security Notice */}
+              <div className="p-6 bg-slate-50 rounded-xl border border-slate-100">
+                <div className="flex items-start gap-4">
+                  <Shield className="w-6 h-6 text-[#990012] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-slate-900 mb-1">Confidential & Secure</p>
+                    <p className="text-slate-600 text-sm">
+                      All communications with Digital Asset Defenders are encrypted and treated with the highest confidentiality standards. We comply with ISO 27001 and maintain strict data protection protocols.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
   )
 }
+
+export default ContactSection
