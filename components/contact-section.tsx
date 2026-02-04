@@ -110,13 +110,10 @@ const ContactSection = () => {
                   <p className="text-slate-600 mb-6">
                     Send us a detailed message about your security requirements. We'll respond within 2 hours.
                   </p>
-                  <Button
-                    onClick={handleEmailClick}
-                    className="w-full bg-[#990012] hover:bg-[#7a000e] text-white py-3 rounded-lg font-semibold transition-all duration-300"
-                  >
-                    <Mail className="w-4 h-4 mr-2" />
+                  <div className="w-full bg-slate-100 text-slate-600 py-3 rounded-lg font-semibold text-center">
+                    <Mail className="w-4 h-4 mr-2 inline" />
                     Email Security Team
-                  </Button>
+                  </div>
                   <p className="text-sm text-slate-500 mt-4 text-center">Security@digitalassetdefenders.com</p>
                 </div>
 
@@ -129,13 +126,10 @@ const ContactSection = () => {
                   <p className="text-slate-600 mb-6">
                     Speak directly with our specialists for immediate consultation on urgent security matters.
                   </p>
-                  <Button
-                    onClick={handlePhoneCall}
-                    className="w-full bg-[#990012] hover:bg-[#7a000e] text-white py-3 rounded-lg font-semibold transition-all duration-300"
-                  >
-                    <Phone className="w-4 h-4 mr-2" />
+                  <div className="w-full bg-slate-100 text-slate-600 py-3 rounded-lg font-semibold text-center">
+                    <Phone className="w-4 h-4 mr-2 inline" />
                     Call Now
-                  </Button>
+                  </div>
                   <p className="text-sm text-slate-500 mt-4 text-center">+254 (714) 749-513</p>
                 </div>
               </div>
