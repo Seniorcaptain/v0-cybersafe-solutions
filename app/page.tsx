@@ -1,10 +1,10 @@
 import HeroSection from "@/components/hero-section"
+import ServicesGrid from "@/components/services-grid"
 import ThreatFeed from "@/components/threat-feed"
-import QuoteCalculator from "@/components/quote-calculator"
+import CTASection from "@/components/cta-section"
 import ContactSection from "@/components/contact-section"
 import Navigation from "@/components/navigation"
 import { NotificationProvider } from "@/components/notification-system"
-import { TeamSection } from "@/components/team-section"
 
 export default function Home() {
   return (
@@ -12,9 +12,9 @@ export default function Home() {
       <div className="min-h-screen bg-white text-gray-900">
         <Navigation />
         <HeroSection />
+        <ServicesGrid />
         <ThreatFeed />
-        <TeamSection />
-        <QuoteCalculator />
+        <CTASection />
         <ContactSection />
       </div>
     </NotificationProvider>
