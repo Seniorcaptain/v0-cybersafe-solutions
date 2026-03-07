@@ -5,7 +5,6 @@ import QuoteCalculator from "@/components/quote-calculator"
 import ContactSection from "@/components/contact-section"
 import Navigation from "@/components/navigation"
 import { NotificationProvider } from "@/components/notification-system"
-import { TeamSection } from "@/components/team-section"
 
 export default function Home() {
   return (
@@ -15,7 +14,6 @@ export default function Home() {
         <HeroSection />
         <ServicesGrid />
         <ThreatFeed />
-        <TeamSection />
         <QuoteCalculator />
         <ContactSection />
       </div>
