@@ -11,25 +11,25 @@ export default function HeroSection() {
           <div className="flex flex-col justify-center">
             <div className="mb-8">
               <p className="text-sm md:text-base font-semibold text-[#990012] uppercase tracking-widest mb-4">
-                Empowering Your Cybersecurity Defense
+                Global Compliance & Security Expertise
               </p>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-950 leading-tight mb-6">
-                Enterprise Security, Simplified.
+                Enterprise Security & Regulatory Compliance
               </h1>
               <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-lg">
-                A breach occurs every second. Digital Asset Defenders provides world-class cybersecurity solutions with actionable insights and proven methodologies to keep your organization resilient.
+                Specializing in PCI DSS, ISO 27001, Kenya DPA, and international data protection regulations. Digital Asset Defenders delivers penetration testing, security audits, and continuous threat intelligence for regulated enterprises worldwide—from African fintechs to global organizations.
               </p>
             </div>
 
-            {/* Stats */}
+            {/* Trust Indicators */}
             <div className="grid grid-cols-2 gap-8 my-12 py-12 border-y border-gray-200">
               <div>
-                <p className="text-3xl md:text-4xl font-bold text-[#990012]">15+</p>
-                <p className="text-gray-600 mt-2">Years of Experience</p>
+                <p className="text-3xl md:text-4xl font-bold text-[#990012]">ISO 27001</p>
+                <p className="text-gray-600 mt-2">Certified Partner</p>
               </div>
               <div>
-                <p className="text-3xl md:text-4xl font-bold text-[#990012]">500+</p>
-                <p className="text-gray-600 mt-2">Organizations Protected</p>
+                <p className="text-3xl md:text-4xl font-bold text-[#990012]">PCI DSS</p>
+                <p className="text-gray-600 mt-2">Compliance Expert</p>
               </div>
             </div>
 
