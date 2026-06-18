@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { AlertTriangle, Shield, Globe, Clock, TrendingUp, ExternalLink } from "lucide-react"
 
-const threatData = [
+const defaultThreatData = [
   {
     id: 1,
     type: "Critical",
@@ -91,12 +91,56 @@ const metrics = [
 
 export default function ThreatFeed() {
   const [currentTime, setCurrentTime] = useState(new Date())
+  const [threatData, setThreatData] = useState(defaultThreatData)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date())
     }, 1000)
     return () => clearInterval(timer)
+  }, [])
+
+  useEffect(() => {
+    const fetchThreatNews = async () => {
+      try {
+        // Fetch from The Hacker News RSS feed via a public CORS-enabled API
+        const response = await fetch(
+          "https://api.rss2json.com/v1/api.json?rss_url=https://feeds.thehackernews.com/feed"
+        )
+        if (response.ok) {
+          const data = await response.json()
+          if (data.items && data.items.length > 0) {
+            // Map RSS items to threat data format
+            const hackerNewsItems = data.items.slice(0, 3).map((item, index) => ({
+              id: 100 + index,
+              type: "High",
+              title: item.title,
+              severity: "High",
+              time: new Date(item.pubDate).toLocaleTimeString([], { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+              }),
+              source: "The Hacker News",
+              affected: "All Industries",
+              url: item.link,
+            }))
+            // Combine with default data
+            setThreatData([...hackerNewsItems, ...defaultThreatData.slice(0, 2)])
+          }
+        }
+      } catch (error) {
+        console.log("[v0] Failed to fetch The Hacker News feed, using default data")
+        setThreatData(defaultThreatData)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchThreatNews()
+    // Refresh every 5 minutes
+    const newsInterval = setInterval(fetchThreatNews, 5 * 60 * 1000)
+    return () => clearInterval(newsInterval)
   }, [])
 
   const getSeverityColor = (severity: string) => {
@@ -156,7 +200,9 @@ export default function ThreatFeed() {
                 <CardTitle className="text-xl text-gray-900 flex items-center gap-3">
                   <AlertTriangle className="w-6 h-6 text-red-600" />
                   Recent Threats
-                  <Badge className="bg-red-100 text-red-700 border-red-300 animate-pulse">Live</Badge>
+                  <Badge className={`${isLoading ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'} border-red-300 ${!isLoading && 'animate-pulse'}`}>
+                    {isLoading ? "Loading..." : "Live"}
+                  </Badge>
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
