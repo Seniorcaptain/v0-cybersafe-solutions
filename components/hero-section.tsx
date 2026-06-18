@@ -11,13 +11,13 @@ export default function HeroSection() {
           <div className="flex flex-col justify-center">
             <div className="mb-8">
               <p className="text-sm md:text-base font-semibold text-[#990012] uppercase tracking-widest mb-4">
-                PCI DSS & Kenya DPA Compliance Specialists
+                Global Compliance & Security Expertise
               </p>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-950 leading-tight mb-6">
-                Cybersecurity for East African Fintechs & SACCOs
+                Enterprise Security & Regulatory Compliance
               </h1>
               <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-lg">
-                Meet your regulatory obligations. Digital Asset Defenders helps East African fintechs, SACCOs, and regulated enterprises achieve PCI DSS, ISO 27001, and Kenya Data Protection Act compliance through penetration testing, security audits, and ongoing threat intelligence.
+                Specializing in PCI DSS, ISO 27001, Kenya DPA, and international data protection regulations. Digital Asset Defenders delivers penetration testing, security audits, and continuous threat intelligence for regulated enterprises worldwide—from African fintechs to global organizations.
               </p>
             </div>
 

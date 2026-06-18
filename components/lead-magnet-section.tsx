@@ -37,10 +37,10 @@ export default function LeadMagnetSection() {
             </div>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            See Your Security Exposure
+            Free External Attack Surface Scan
           </h2>
           <p className="text-lg text-red-100 max-w-2xl mx-auto">
-            Get a free External Attack Surface Scan. Discover vulnerabilities in your public-facing infrastructure within 48 hours.
+            Discover what attackers see about your organization. Our automated scan identifies exposed assets, misconfigurations, and vulnerabilities in your public-facing infrastructure—delivered within 48 hours.
           </p>
         </div>
 
@@ -97,7 +97,7 @@ export default function LeadMagnetSection() {
         </div>
 
         <p className="text-center text-red-100 text-sm mt-6">
-          No commitment. No credit card required. Used by 50+ East African enterprises.
+          No commitment. No credit card required. Trusted by regulated enterprises worldwide.
         </p>
       </div>
     </section>

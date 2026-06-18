@@ -9,22 +9,22 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Cybersecurity Consulting Kenya | PCI DSS & ISO 27001 Compliance | Digital Asset Defenders",
+  title: "Enterprise Cybersecurity & Compliance | PCI DSS | ISO 27001 | Digital Asset Defenders",
   description:
-    "East Africa's leading cybersecurity consultancy. PCI DSS & Kenya DPA compliance, pentesting, and threat intelligence for fintechs, SACCOs, and regulated enterprises. SACCO cybersecurity specialists.",
+    "Global cybersecurity consultancy specializing in PCI DSS, ISO 27001, Kenya DPA, and regulatory compliance. Penetration testing, security audits, and threat intelligence for fintechs, banks, healthcare, and regulated enterprises worldwide.",
   keywords:
-    "cybersecurity Kenya, penetration testing Nairobi, ISO 27001 consultant Kenya, PCI DSS compliance Kenya, Data Protection Act 2019 audit, SACCO cybersecurity, fintech security",
+    "cybersecurity consultant, penetration testing, PCI DSS compliance, ISO 27001 certification, data protection, security audit, threat intelligence, compliance consulting, fintech security, Kenya cybersecurity, East Africa security",
   generator: "v0.app",
   icons: {
     icon: "/icon.svg",
   },
   openGraph: {
     type: "website",
-    locale: "en_KE",
+    locale: "en_US",
     url: "https://digitalassetdefenders.com",
-    title: "Cybersecurity Consulting Kenya | PCI DSS & ISO 27001 Compliance",
+    title: "Enterprise Cybersecurity & Regulatory Compliance Solutions",
     description:
-      "Enterprise cybersecurity solutions for East African fintechs, SACCOs, and regulated organizations. Pentesting, compliance, and threat intelligence.",
+      "Premium cybersecurity services for regulated enterprises. PCI DSS, ISO 27001, Kenya DPA compliance. Pentesting, audits, and continuous threat intelligence.",
     siteName: "Digital Asset Defenders",
   },
   alternates: {
@@ -96,7 +96,7 @@ export default function RootLayout({
                 postalCode: "00100",
                 addressCountry: "KE",
               },
-              areaServed: ["KE", "UG", "TZ", "RW"],
+              areaServed: ["KE", "UG", "TZ", "RW", "GB", "US", "DE", "SG", "AU"],
               priceRange: "$$",
               knowsAbout: [
                 "Penetration Testing",

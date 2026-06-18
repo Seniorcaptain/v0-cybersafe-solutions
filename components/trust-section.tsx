@@ -7,10 +7,10 @@ export default function TrustSection() {
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Trusted by Regulated Enterprises
+            Trusted by Global & Regional Enterprises
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            We help organizations across Kenya and East Africa meet their compliance requirements and protect what matters most.
+            Whether you operate in East Africa or globally, we deliver compliance expertise, penetration testing, and security assurance for regulated organizations that demand results.
           </p>
         </div>
 
@@ -44,7 +44,7 @@ export default function TrustSection() {
             </div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">50+ Organizations</h3>
             <p className="text-gray-600 text-sm">
-              Active partnerships with fintechs, SACCOs, banks, and regulated enterprises across the region.
+              Active partnerships with fintechs, banks, healthcare providers, and regulated enterprises globally.
             </p>
           </div>
 
@@ -63,14 +63,16 @@ export default function TrustSection() {
         {/* Client Sectors */}
         <div className="bg-white rounded-lg p-8 border border-gray-200">
           <h3 className="text-xl font-bold text-gray-900 mb-6">Industries We Serve</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              "Fintech & Payment Processing",
+              "Fintech & Payment Processors",
               "SACCOs & Micro-Finance",
-              "Commercial Banks",
-              "Healthcare Providers",
+              "Commercial & Central Banks",
+              "Healthcare & HIPAA-Regulated",
               "Law Firms & Legal Tech",
-              "E-Commerce & SaaS",
+              "E-Commerce & SaaS Platforms",
+              "Government & Public Sector",
+              "Cryptocurrency & Web3",
             ].map((industry, idx) => (
               <div key={idx} className="flex items-center gap-3">
                 <CheckCircle className="w-5 h-5 text-[#990012] flex-shrink-0" />
