@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Phone, Mail, ArrowRight } from "lucide-react"
+import { Phone, ArrowRight } from "lucide-react"
 
 export default function CTASection() {
   const handlePhoneClick = () => {
@@ -10,10 +10,8 @@ export default function CTASection() {
     }
   }
 
-  const handleEmailClick = () => {
-    if (typeof window !== "undefined") {
-      window.location.href = "mailto:Security@digitalassetdefenders.com"
-    }
+  const handleConsultationClick = () => {
+    document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
   }
 
   return (
@@ -36,11 +34,11 @@ export default function CTASection() {
               Call Now: +254 (714) 749-513
             </Button>
             <Button
-              onClick={handleEmailClick}
+              onClick={handleConsultationClick}
               className="bg-black/20 hover:bg-black/30 text-white px-8 py-6 text-base font-semibold rounded-lg transition-all border border-white/30 flex items-center justify-center"
             >
-              <Mail className="w-5 h-5 mr-2" />
-              Email: Security@digitalassetdefenders.com
+              <ArrowRight className="w-5 h-5 mr-2" />
+              Book Consultation
             </Button>
           </div>
 
