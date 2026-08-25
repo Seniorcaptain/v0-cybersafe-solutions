@@ -1,130 +1,113 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { AlertTriangle, Shield, Globe, Clock, TrendingUp, ExternalLink } from "lucide-react"
+import { AlertTriangle, Shield, Globe, Clock, ExternalLink, RefreshCw } from "lucide-react"
 
-const threatData = [
-  {
-    id: 1,
-    type: "Critical",
-    title: "New ransomware variant targeting healthcare systems",
-    severity: "Critical",
-    time: "2 minutes ago",
-    source: "The Hacker News",
-    affected: "Healthcare, Financial",
-    url: "https://thehackernews.com",
-  },
-  {
-    id: 2,
-    type: "High",
-    title: "Zero-day vulnerability in popular CMS platform",
-    severity: "High",
-    time: "15 minutes ago",
-    source: "Kaspersky Threat Map",
-    affected: "Web Applications",
-    url: "https://cybermap.kaspersky.com",
-  },
-  {
-    id: 3,
-    type: "Medium",
-    title: "Phishing campaign targeting corporate executives",
-    severity: "Medium",
-    time: "1 hour ago",
-    source: "Check Point Threat Map",
-    affected: "All Industries",
-    url: "https://threatmap.checkpoint.com",
-  },
-  {
-    id: 4,
-    type: "High",
-    title: "Supply chain attack on software development tools",
-    severity: "High",
-    time: "2 hours ago",
-    source: "The Hacker News",
-    affected: "Technology",
-    url: "https://thehackernews.com",
-  },
-  {
-    id: 5,
-    type: "Low",
-    title: "Updated botnet infrastructure detected",
-    severity: "Low",
-    time: "4 hours ago",
-    source: "Kaspersky Threat Map",
-    affected: "General",
-    url: "https://cybermap.kaspersky.com",
-  },
-]
+interface FeedItem {
+  id: string
+  title: string
+  link: string
+  pubDate: string
+  source: string
+  severity: "Critical" | "High" | "Medium" | "Low"
+  categories: string[]
+}
 
-const metrics = [
-  {
-    title: "Active Threats",
-    value: "247",
-    change: "+12",
-    icon: AlertTriangle,
-    color: "text-red-600",
-  },
-  {
-    title: "Protected Clients",
-    value: "1,340",
-    change: "+23",
-    icon: Shield,
-    color: "text-green-600",
-  },
-  {
-    title: "Global Coverage",
-    value: "45",
-    change: "+2",
-    icon: Globe,
-    color: "text-blue-600",
-  },
-  {
-    title: "Avg Response Time",
-    value: "8 min",
-    change: "-2 min",
-    icon: Clock,
-    color: "text-purple-600",
-  },
-]
+function timeAgo(pubDate: string): string {
+  if (!pubDate) return ""
+  const date = new Date(pubDate)
+  const diffMs = Date.now() - date.getTime()
+  const diffMin = Math.round(diffMs / 60000)
+  if (diffMin < 1) return "just now"
+  if (diffMin < 60) return `${diffMin} min ago`
+  const diffHrs = Math.round(diffMin / 60)
+  if (diffHrs < 24) return `${diffHrs} hr${diffHrs > 1 ? "s" : ""} ago`
+  const diffDays = Math.round(diffHrs / 24)
+  return `${diffDays} day${diffDays > 1 ? "s" : ""} ago`
+}
+
+const getSeverityColor = (severity: string) => {
+  switch (severity.toLowerCase()) {
+    case "critical":
+      return "bg-red-500/15 text-red-400 border-red-500/30"
+    case "high":
+      return "bg-orange-500/15 text-orange-400 border-orange-500/30"
+    case "medium":
+      return "bg-yellow-500/15 text-yellow-400 border-yellow-500/30"
+    default:
+      return "bg-blue-500/15 text-blue-400 border-blue-500/30"
+  }
+}
 
 export default function ThreatFeed() {
-  const [currentTime, setCurrentTime] = useState(new Date())
+  const [items, setItems] = useState<FeedItem[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+  const [lastFetched, setLastFetched] = useState<Date | null>(null)
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date())
-    }, 1000)
-    return () => clearInterval(timer)
+  const loadFeed = useCallback(async () => {
+    try {
+      const res = await fetch("/api/threat-feed", { cache: "no-store" })
+      const data = await res.json()
+      if (data.success) {
+        setItems(data.items)
+        setError(false)
+      } else {
+        setError(true)
+      }
+    } catch {
+      setError(true)
+    } finally {
+      setLoading(false)
+      setLastFetched(new Date())
+    }
   }, [])
 
-  const getSeverityColor = (severity: string) => {
-    switch (severity.toLowerCase()) {
-      case "critical":
-        return "bg-red-100 text-red-700 border-red-300"
-      case "high":
-        return "bg-orange-100 text-orange-700 border-orange-300"
-      case "medium":
-        return "bg-yellow-100 text-yellow-700 border-yellow-300"
-      case "low":
-        return "bg-blue-100 text-blue-700 border-blue-300"
-      default:
-        return "bg-gray-100 text-gray-700 border-gray-300"
-    }
-  }
+  useEffect(() => {
+    loadFeed()
+    const interval = setInterval(loadFeed, 5 * 60 * 1000) // refresh every 5 minutes
+    return () => clearInterval(interval)
+  }, [loadFeed])
+
+  const criticalCount = items.filter((i) => i.severity === "Critical" || i.severity === "High").length
+
+  const metrics = [
+    {
+      title: "Headlines Tracked",
+      value: loading ? "—" : String(items.length),
+      icon: Globe,
+      color: "text-blue-400",
+    },
+    {
+      title: "Critical / High Alerts",
+      value: loading ? "—" : String(criticalCount),
+      icon: AlertTriangle,
+      color: "text-red-400",
+    },
+    {
+      title: "Source",
+      value: "The Hacker News",
+      icon: Shield,
+      color: "text-violet-400",
+    },
+    {
+      title: "Last Synced",
+      value: lastFetched ? lastFetched.toLocaleTimeString() : "—",
+      icon: Clock,
+      color: "text-gray-300",
+    },
+  ]
 
   return (
-    <section id="threat-feed" className="py-20 bg-white">
+    <section id="threat-feed" className="py-20 bg-[#0b0b10]">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">
-            Live Threat Intelligence
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Real-time cybersecurity alerts from leading threat intelligence sources
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 brand-gradient-text">Live Threat Intelligence</h2>
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            Live headlines pulled directly from The Hacker News, refreshed automatically every few minutes.
           </p>
-          <div className="mt-4 text-red-600 font-mono text-sm">Last updated: {currentTime.toLocaleString()}</div>
         </div>
 
         {/* Metrics Dashboard */}
@@ -132,128 +115,106 @@ export default function ThreatFeed() {
           {metrics.map((metric, index) => {
             const IconComponent = metric.icon
             return (
-              <Card key={index} className="bg-white border-red-200">
+              <Card key={index} className="bg-[#111117] border-white/10">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <IconComponent className={`w-8 h-8 ${metric.color}`} />
-                    <Badge variant="outline" className="border-red-300 text-red-600 bg-red-50">
-                      {metric.change}
-                    </Badge>
                   </div>
-                  <div className="text-3xl font-bold text-gray-900 mb-1">{metric.value}</div>
-                  <div className="text-gray-600 text-sm">{metric.title}</div>
+                  <div className="text-2xl md:text-3xl font-bold text-white mb-1">{metric.value}</div>
+                  <div className="text-gray-500 text-sm">{metric.title}</div>
                 </CardContent>
               </Card>
             )
           })}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Threat Feed */}
-          <div className="lg:col-span-2">
-            <Card className="bg-white border-red-200 h-full">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-xl text-gray-900 flex items-center gap-3">
-                  <AlertTriangle className="w-6 h-6 text-red-600" />
-                  Recent Threats
-                  <Badge className="bg-red-100 text-red-700 border-red-300 animate-pulse">Live</Badge>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {threatData.map((threat) => (
-                  <div
-                    key={threat.id}
-                    className="p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-red-300 transition-all cursor-pointer"
-                    onClick={() => window.open(threat.url, "_blank")}
-                  >
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex items-center gap-3">
-                        <Badge className={getSeverityColor(threat.severity)}>{threat.severity}</Badge>
-                        <span className="text-gray-500 text-sm">{threat.time}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Badge variant="outline" className="border-gray-300 text-gray-600 text-xs bg-white">
-                          {threat.source}
-                        </Badge>
-                        <ExternalLink className="w-4 h-4 text-gray-400" />
-                      </div>
-                    </div>
-
-                    <h3 className="text-gray-900 font-medium mb-2">{threat.title}</h3>
-
-                    <div className="flex items-center justify-between">
-                      <span className="text-gray-600 text-sm">Affected: {threat.affected}</span>
-                      <button className="text-red-600 hover:text-red-700 text-sm font-semibold transition-colors">
-                        Learn More →
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Threat Intelligence Sources */}
-          <div className="space-y-6">
-            <Card className="bg-white border-red-200">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-lg text-gray-900 flex items-center gap-3">
-                  <Globe className="w-5 h-5 text-red-600" />
-                  Threat Maps
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <a
-                  href="https://threatmap.checkpoint.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-200 hover:border-red-400 transition-colors"
-                >
-                  <div>
-                    <p className="text-gray-900 font-medium text-sm">Check Point Threat Map</p>
-                    <p className="text-gray-600 text-xs">Live cyber attacks worldwide</p>
-                  </div>
-                  <ExternalLink className="w-4 h-4 text-red-600" />
-                </a>
-                <a
-                  href="https://cybermap.kaspersky.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-200 hover:border-red-400 transition-colors"
-                >
-                  <div>
-                    <p className="text-gray-900 font-medium text-sm">Kaspersky Cyber Map</p>
-                    <p className="text-gray-600 text-xs">Real-time threat intelligence</p>
-                  </div>
-                  <ExternalLink className="w-4 h-4 text-red-600" />
-                </a>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white border-red-200">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-lg text-gray-900 flex items-center gap-3">
-                  <TrendingUp className="w-5 h-5 text-red-600" />
-                  Latest News
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <a
+        <Card className="bg-[#111117] border-white/10">
+          <CardHeader className="pb-4 flex flex-row items-center justify-between">
+            <CardTitle className="text-xl text-white flex items-center gap-3">
+              <AlertTriangle className="w-6 h-6 text-[#ff2b4d]" />
+              Latest Headlines
+              {!loading && !error && (
+                <Badge className="bg-green-500/15 text-green-400 border-green-500/30 animate-pulse">Live</Badge>
+              )}
+            </CardTitle>
+            <button
+              onClick={() => {
+                setLoading(true)
+                loadFeed()
+              }}
+              className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
+            >
+              <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
+              Refresh
+            </button>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {error && (
+              <div className="p-4 bg-white/5 rounded-lg border border-white/10 text-gray-400 text-sm">
+                Couldn&apos;t reach the live feed right now — try refreshing, or visit{" "}
+                
                   href="https://thehackernews.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-200 hover:border-red-400 transition-colors"
+                  className="text-[#ff6b81] underline"
                 >
-                  <div>
-                    <p className="text-gray-900 font-medium text-sm">The Hacker News</p>
-                    <p className="text-gray-600 text-xs">Cybersecurity news & updates</p>
+                  The Hacker News
+                </a>{" "}
+                directly.
+              </div>
+            )}
+
+            {loading &&
+              !error &&
+              Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="p-4 bg-white/5 rounded-lg border border-white/10 animate-pulse h-20" />
+              ))}
+
+            {!loading &&
+              items.map((item) => (
+                
+                  key={item.id}
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block p-4 bg-white/[0.03] rounded-lg border border-white/10 hover:border-[#ff2b4d]/40 transition-all"
+                >
+                  <div className="flex items-start justify-between mb-3 gap-3">
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <Badge className={getSeverityColor(item.severity)}>{item.severity}</Badge>
+                      <span className="text-gray-500 text-sm">{timeAgo(item.pubDate)}</span>
+                    </div>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <Badge variant="outline" className="border-white/15 text-gray-400 text-xs bg-transparent">
+                        {item.source}
+                      </Badge>
+                      <ExternalLink className="w-4 h-4 text-gray-500" />
+                    </div>
                   </div>
-                  <ExternalLink className="w-4 h-4 text-red-600" />
+
+                  <h3 className="text-white font-medium mb-2">{item.title}</h3>
+
+                  {item.categories.length > 0 && (
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {item.categories.map((c) => (
+                        <span key={c} className="text-xs text-gray-500">
+                          #{c.replace(/\s+/g, "")}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </a>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+              ))}
+          </CardContent>
+        </Card>
+
+        <p className="text-center text-gray-600 text-xs mt-6">
+          Headlines and links are sourced from{" "}
+          <a href="https://thehackernews.com/" target="_blank" rel="noopener noreferrer" className="underline">
+            thehackernews.com
+          </a>
+          . Severity labels are an automated estimate, not an official rating.
+        </p>
       </div>
     </section>
   )
