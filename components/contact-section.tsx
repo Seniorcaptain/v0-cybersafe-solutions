@@ -8,7 +8,17 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 
 const ContactSection = () => {
-  const [form, setForm] = useState({ name: "", email: "", company: "", message: "" })
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    company: "",
+    services: "",
+    framework: "",
+    testingApproach: "",
+    environment: "",
+    concerns: "",
+    message: "",
+  })
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [errorMessage, setErrorMessage] = useState("")
 
@@ -43,7 +53,7 @@ const ContactSection = () => {
         throw new Error(data.message || "Something went wrong.")
       }
       setStatus("success")
-      setForm({ name: "", email: "", company: "", message: "" })
+      setForm({ name: "", email: "", company: "", services: "", framework: "", testingApproach: "", environment: "", concerns: "", message: "" })
     } catch (err) {
       setStatus("error")
       setErrorMessage(err instanceof Error ? err.message : "Something went wrong.")
@@ -173,8 +183,33 @@ const ContactSection = () => {
                 </div>
               </div>
 
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                {[
+                  ["services", "Services needed", "Select a service", ["Penetration testing", "Security audit", "Compliance assessment", "Vulnerability assessment", "Incident response"]],
+                  ["framework", "Primary framework", "Select a framework", ["Kenya DPA", "PCI DSS v4.0.1", "ISO 27001:2022", "CBK cybersecurity guidelines", "Not sure yet"]],
+                  ["testingApproach", "Testing approach", "Select an approach", ["Black-box", "Grey-box", "White-box", "Not sure yet"]],
+                  ["environment", "Environment", "Select your environment", ["Cloud infrastructure", "Web applications", "Mobile applications", "On-premises systems", "Hybrid environment", "Other"]],
+                ].map(([field, label, placeholder, options]) => (
+                  <div key={field as string} className="space-y-2">
+                    <label className="text-sm text-gray-300" htmlFor={field as string}>{label as string}</label>
+                    <select
+                      id={field as string}
+                      value={form[field as keyof typeof form]}
+                      onChange={handleChange(field as keyof typeof form)}
+                      disabled={status === "loading"}
+                      className="flex h-10 w-full rounded-md border border-white/15 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:ring-2 focus:ring-[#ff2b4d]/40"
+                    >
+                      <option value="" className="bg-[#111318]">{placeholder as string}</option>
+                      {(options as string[]).map((option) => (
+                        <option key={option} value={option} className="bg-[#111318]">{option}</option>
+                      ))}
+                    </select>
+                  </div>
+                ))}
+              </div>
+
               <div className="space-y-2">
-                <label className="text-sm text-gray-300">Company (optional)</label>
+                <label className="text-sm text-gray-300" htmlFor="company">Company (optional)</label>
                 <Input
                   value={form.company}
                   onChange={handleChange("company")}
@@ -185,7 +220,20 @@ const ContactSection = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm text-gray-300">Message</label>
+                <label className="text-sm text-gray-300" htmlFor="concerns">Top security concerns</label>
+                <Textarea
+                  id="concerns"
+                  rows={3}
+                  value={form.concerns}
+                  onChange={handleChange("concerns")}
+                  placeholder="What are your top three security concerns or sensitive systems?"
+                  disabled={status === "loading"}
+                  className="bg-white/5 border-white/15 text-white placeholder:text-gray-500 focus-visible:ring-[#ff2b4d]/40"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm text-gray-300" htmlFor="message">Additional details</label>
                 <Textarea
                   required
                   rows={5}
