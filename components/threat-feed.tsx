@@ -152,7 +152,7 @@ export default function ThreatFeed() {
             {error && (
               <div className="p-4 bg-white/5 rounded-lg border border-white/10 text-gray-400 text-sm">
                 Couldn&apos;t reach the live feed right now — try refreshing, or visit{" "}
-                
+                <a
                   href="https://thehackernews.com/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -172,7 +172,7 @@ export default function ThreatFeed() {
 
             {!loading &&
               items.map((item) => (
-                
+                <a
                   key={item.id}
                   href={item.link}
                   target="_blank"
