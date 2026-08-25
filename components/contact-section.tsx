@@ -8,7 +8,17 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 
 const ContactSection = () => {
-  const [form, setForm] = useState({ name: "", email: "", company: "", message: "" })
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    company: "",
+    services: "",
+    framework: "",
+    testingApproach: "",
+    environment: "",
+    concerns: "",
+    message: "",
+  })
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [errorMessage, setErrorMessage] = useState("")
 
@@ -43,7 +53,7 @@ const ContactSection = () => {
         throw new Error(data.message || "Something went wrong.")
       }
       setStatus("success")
-      setForm({ name: "", email: "", company: "", message: "" })
+      setForm({ name: "", email: "", company: "", services: "", framework: "", testingApproach: "", environment: "", concerns: "", message: "" })
     } catch (err) {
       setStatus("error")
       setErrorMessage(err instanceof Error ? err.message : "Something went wrong.")
@@ -173,8 +183,29 @@ const ContactSection = () => {
                 </div>
               </div>
 
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                {[
+                  ["services", "Services needed", "Penetration testing, audit, compliance..."],
+                  ["framework", "Primary framework", "DPA, PCI DSS, ISO 27001, CBK..."],
+                  ["testingApproach", "Testing approach", "Black-box, grey-box, white-box, unsure"],
+                  ["environment", "Environment", "Cloud providers, applications, IP ranges..."],
+                ].map(([field, label, placeholder]) => (
+                  <div key={field} className="space-y-2">
+                    <label className="text-sm text-gray-300" htmlFor={field}>{label}</label>
+                    <Input
+                      id={field}
+                      value={form[field as keyof typeof form]}
+                      onChange={handleChange(field as keyof typeof form)}
+                      placeholder={placeholder}
+                      disabled={status === "loading"}
+                      className="bg-white/5 border-white/15 text-white placeholder:text-gray-500 focus-visible:ring-[#ff2b4d]/40"
+                    />
+                  </div>
+                ))}
+              </div>
+
               <div className="space-y-2">
-                <label className="text-sm text-gray-300">Company (optional)</label>
+                <label className="text-sm text-gray-300" htmlFor="company">Company (optional)</label>
                 <Input
                   value={form.company}
                   onChange={handleChange("company")}
@@ -185,7 +216,20 @@ const ContactSection = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm text-gray-300">Message</label>
+                <label className="text-sm text-gray-300" htmlFor="concerns">Top security concerns</label>
+                <Textarea
+                  id="concerns"
+                  rows={3}
+                  value={form.concerns}
+                  onChange={handleChange("concerns")}
+                  placeholder="What are your top three security concerns or sensitive systems?"
+                  disabled={status === "loading"}
+                  className="bg-white/5 border-white/15 text-white placeholder:text-gray-500 focus-visible:ring-[#ff2b4d]/40"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm text-gray-300" htmlFor="message">Additional details</label>
                 <Textarea
                   required
                   rows={5}

@@ -92,13 +92,16 @@ export default function ServicesGrid() {
 
         {/* Bottom CTA */}
         <div className="mt-20 text-center">
-          <p className="text-gray-600 mb-6">Ready to strengthen your security posture?</p>
-          <button className="inline-flex items-center gap-2 bg-[#990012] hover:bg-[#7a000e] text-white px-8 py-3 rounded-lg font-semibold transition-all">
+          <p className="mb-6 text-muted-foreground">Ready to strengthen your security posture?</p>
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-3 font-semibold text-primary-foreground transition-all hover:bg-primary/90"
+          >
             Schedule a Consultation
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-          </button>
+          </a>
         </div>
       </div>
     </section>
