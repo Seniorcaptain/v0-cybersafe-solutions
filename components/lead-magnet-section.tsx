@@ -1,106 +1,103 @@
 "use client"
 
-import { Shield, Lock, AlertCircle, Cloud, Zap, BarChart3 } from "lucide-react"
+import { ArrowUpRight, BookOpen, FileCheck2, Video } from "lucide-react"
 
-const services = [
+const featuredContent = [
   {
-    icon: Shield,
-    title: "Penetration Testing",
-    description: "Simulate real-world cyberattacks to uncover vulnerabilities across web, API, network, and mobile domains before criminals do.",
-    features: ["Actionable Reports", "Risk Controls", "Vulnerability Assessments"],
+    type: "Insight",
+    icon: BookOpen,
+    title: "Kenya Data Protection Act (DPA) 2019",
+    description:
+      "A practical compliance roadmap covering ODPC registration, lawful processing, data subject rights, DPIAs, breach notification, and enforcement exposure.",
+    tag: "Data protection",
   },
   {
-    icon: Lock,
-    title: "Security Audits & Compliance",
-    description: "Understand your current risk posture and compliance readiness with comprehensive security assessments.",
-    features: ["Cyber Resilience Planning", "Compliance Review", "Maturity Evaluation"],
+    type: "Guide",
+    icon: FileCheck2,
+    title: "PCI DSS v4.0.1 Transition Guide",
+    description:
+      "Understand the new requirements for fintechs and payment processors, including MFA, WAF coverage, script management, segmentation testing, and SBOMs.",
+    tag: "Payment security",
   },
   {
-    icon: Cloud,
-    title: "Cloud Security Audit",
-    description: "Strengthen your cloud environments by addressing hidden risks and security gaps.",
-    features: ["Risk-Based Recommendations", "Policy Audits", "Weakness Identification"],
+    type: "Insight",
+    icon: BookOpen,
+    title: "ISO 27001:2022 Certification",
+    description:
+      "Move from preparation to continuous improvement with a clear view of the 93 Annex A controls, new controls, migration strategy, and audit evidence.",
+    tag: "Information security",
   },
   {
-    icon: AlertCircle,
-    title: "Incident Response",
-    description: "Rapid response and forensic analysis to minimize impact and accelerate recovery from security incidents.",
-    features: ["24/7 Response", "Forensic Analysis", "Recovery Planning"],
-  },
-  {
-    icon: Zap,
-    title: "Security Automation",
-    description: "Streamline security operations with advanced automation and orchestration tools.",
-    features: ["SOAR Integration", "Workflow Automation", "Threat Mitigation"],
-  },
-  {
-    icon: BarChart3,
-    title: "Threat Intelligence",
-    description: "Stay ahead of emerging threats with real-time intelligence and proactive monitoring.",
-    features: ["Real-time Monitoring", "Threat Analysis", "Intelligence Feeds"],
+    type: "Briefing",
+    icon: Video,
+    title: "CBK Cybersecurity Guidelines",
+    description:
+      "Interpret the requirements shaping Kenya's financial sector, from vulnerability management and audit trails to zero trust and third-party risk.",
+    tag: "Financial services",
   },
 ]
 
-export default function ServicesGrid() {
+export default function LeadMagnetSection() {
   return (
-    <section id="services" className="py-24 bg-[#0b0b10]">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Section Header */}
-        <div className="mb-20">
-          <p className="text-sm md:text-base font-semibold text-[#ff2b4d] uppercase tracking-widest mb-4">
-            Our Core Services
-          </p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 max-w-3xl leading-tight">
-            Premium Services to Secure Your Organization
-          </h2>
-          <p className="text-lg text-gray-400 max-w-2xl">
-            We don't just point out problems—we provide clear, practical steps to secure your systems and reduce risks effectively.
-          </p>
+    <section id="insights" className="bg-[#0b0b10] py-24 text-white">
+      <div className="mx-auto max-w-7xl px-6 md:px-12">
+        <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div className="max-w-3xl">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#ff2b4d]">
+              Featured insights
+            </p>
+            <h2 className="mb-5 text-balance text-4xl font-bold leading-tight md:text-5xl">
+              Practical guidance for a changing threat landscape
+            </h2>
+            <p className="max-w-2xl text-lg leading-relaxed text-gray-400">
+              Explore our cybersecurity and compliance content for organisations across Kenya and East Africa. Clear context, actionable steps, and the regulatory detail your team needs to make confident decisions.
+            </p>
+          </div>
+          <a
+            href="#contact"
+            className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-[#ff2b4d] transition-colors hover:text-white"
+          >
+            Request the complete content pack
+            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </a>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => {
-            const Icon = service.icon
+        <div className="grid gap-5 md:grid-cols-2">
+          {featuredContent.map((item) => {
+            const Icon = item.icon
             return (
-              <div
-                key={index}
-                className="group p-8 rounded-2xl border border-white/10 hover:border-[#ff2b4d]/20 hover:bg-white/[0.04] transition-all duration-300"
+              <article
+                key={item.title}
+                className="group flex min-h-64 flex-col justify-between border border-white/10 bg-white/[0.03] p-7 transition-colors hover:border-[#ff2b4d]/50 hover:bg-white/[0.06]"
               >
-                <div className="mb-6">
-                  <div className="w-14 h-14 rounded-xl bg-[#ff2b4d]/10 flex items-center justify-center group-hover:bg-[#ff2b4d]/20 transition-colors">
-                    <Icon className="w-7 h-7 text-[#ff2b4d]" />
+                <div>
+                  <div className="mb-8 flex items-center justify-between">
+                    <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-gray-400">
+                      <Icon className="h-4 w-4 text-[#ff2b4d]" aria-hidden="true" />
+                      {item.type}
+                    </span>
+                    <span className="text-xs text-gray-500">{item.tag}</span>
                   </div>
+                  <h3 className="mb-3 text-2xl font-bold text-white">{item.title}</h3>
+                  <p className="leading-relaxed text-gray-400">{item.description}</p>
                 </div>
-
-                <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
-                <p className="text-gray-400 mb-6 leading-relaxed">{service.description}</p>
-
-                <div className="space-y-2 pt-6 border-t border-white/10">
-                  {service.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#ff2b4d] mt-2 flex-shrink-0" />
-                      <span className="text-sm text-gray-400">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                <a href="#contact" className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors group-hover:text-[#ff2b4d]">
+                  Explore this topic
+                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                </a>
+              </article>
             )
           })}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="mt-20 text-center">
-          <p className="text-gray-400 mb-6">Ready to strengthen your security posture?</p>
-          <button
-            onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-            className="inline-flex items-center gap-2 bg-[#ff2b4d] hover:bg-[#d4173a] text-white px-8 py-3 rounded-lg font-semibold transition-all"
-          >
-            Schedule a Consultation
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+        <div className="mt-5 border border-[#ff2b4d]/25 bg-[#ff2b4d]/[0.06] p-7 md:flex md:items-center md:justify-between md:gap-8">
+          <div>
+            <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-[#ff2b4d]">Inside the full package</p>
+            <p className="max-w-3xl text-gray-300">Eight in-depth insights, six service pages, anonymised case studies, downloadable resources, website copy, and webinar content—organised for publishing and ongoing client education.</p>
+          </div>
+          <a href="#contact" className="mt-5 inline-flex shrink-0 items-center justify-center bg-[#ff2b4d] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#d4173a] md:mt-0">
+            Talk to our team
+          </a>
         </div>
       </div>
     </section>

@@ -43,18 +43,19 @@ const services = [
 
 export default function ServicesGrid() {
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+    <section id="services" className="relative overflow-hidden bg-background py-24">
+      <div className="absolute inset-0 hero-gradient pointer-events-none opacity-30" />
+      <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12">
         {/* Section Header */}
-        <div className="mb-20">
-          <p className="text-sm md:text-base font-semibold text-[#990012] uppercase tracking-widest mb-4">
-            Our Core Services
+        <div className="mb-16 max-w-3xl">
+          <p className="mb-4 font-mono text-sm uppercase tracking-[0.2em] text-primary">
+            Security capabilities
           </p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-950 mb-6 max-w-3xl leading-tight">
-            Premium Services to Secure Your Organization
+          <h2 className="mb-6 text-balance text-4xl font-bold leading-tight text-foreground md:text-5xl lg:text-6xl">
+            Security built for the threats ahead.
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl">
-            We don't just point out problems—we provide clear, practical steps to secure your systems and reduce risks effectively.
+          <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
+            From first assessment to continuous defense, our specialists turn complex security risks into clear, practical action.
           </p>
         </div>
 
@@ -65,22 +66,22 @@ export default function ServicesGrid() {
             return (
               <div
                 key={index}
-                className="group p-8 rounded-2xl border border-gray-200 hover:border-[#990012]/20 hover:bg-gray-50/50 transition-all duration-300"
+                className="group rounded-2xl border border-border bg-card/60 p-8 transition-all duration-300 hover:border-primary/40 hover:bg-card"
               >
                 <div className="mb-6">
-                  <div className="w-14 h-14 rounded-xl bg-[#990012]/10 flex items-center justify-center group-hover:bg-[#990012]/20 transition-colors">
-                    <Icon className="w-7 h-7 text-[#990012]" />
+                  <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 transition-colors group-hover:bg-primary/20">
+                    <Icon className="h-7 w-7 text-primary" />
                   </div>
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-950 mb-3">{service.title}</h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
+                <h3 className="mb-3 text-xl font-bold text-foreground">{service.title}</h3>
+                <p className="mb-6 leading-relaxed text-muted-foreground">{service.description}</p>
 
-                <div className="space-y-2 pt-6 border-t border-gray-200">
+                <div className="space-y-2 border-t border-border pt-6">
                   {service.features.map((feature, idx) => (
                     <div key={idx} className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#990012] mt-2 flex-shrink-0" />
-                      <span className="text-sm text-gray-600">{feature}</span>
+                      <div className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary" />
+                      <span className="text-sm text-muted-foreground">{feature}</span>
                     </div>
                   ))}
                 </div>

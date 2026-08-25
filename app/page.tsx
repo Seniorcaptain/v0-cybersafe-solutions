@@ -11,7 +11,7 @@ import { NotificationProvider } from "@/components/notification-system"
 export default function Home() {
   return (
     <NotificationProvider>
-      <div className="min-h-screen bg-white text-gray-900">
+      <div className="min-h-screen bg-background text-foreground">
         <Navigation />
         <HeroSection />
         <LeadMagnetSection />
