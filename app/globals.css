@@ -4,55 +4,32 @@
 
 @layer base {
   :root {
-    /* Updated design tokens for Apple-style minimalism: Pure white background, high-contrast text, and #990012 accents */
-    --background: 0 0% 100%; /* Pure white */
-    --foreground: 0 0% 10%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 10%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
-    --primary: 353 100% 30%; /* #990012 */
+    /* Dark-first design tokens: near-black background, crimson brand accent, violet secondary */
+    --background: 240 10% 4%; /* near-black, not pure black */
+    --foreground: 0 0% 98%;
+    --card: 240 8% 8%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 8% 8%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 349 100% 60%; /* #ff2b4d */
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 10%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 353 100% 30%;
+    --secondary: 258 90% 66%; /* violet accent, #7c3aed family */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 240 6% 14%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 349 100% 60%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 92%;
-    --input: 0 0% 92%;
-    --ring: 353 100% 30%;
-    --radius: 0.75rem; /* Slightly rounded for premium modern feel */
-  }
-
-  .dark {
-    /* Dark mode with wine red accent */
-    --background: 0 0% 12%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 16%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 16%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 354 98% 40%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 20%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 25%;
-    --muted-foreground: 0 0% 70%;
-    --accent: 354 98% 40%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 354 98% 35%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 20%;
-    --input: 0 0% 18%;
-    --ring: 354 98% 40%;
-    --chart-1: 354 98% 40%;
-    --chart-2: 354 85% 45%;
-    --chart-3: 354 90% 42%;
-    --chart-4: 354 95% 38%;
-    --chart-5: 354 92% 41%;
+    --border: 240 6% 18%;
+    --input: 240 6% 16%;
+    --ring: 349 100% 60%;
+    --radius: 0.75rem;
+    --chart-1: 349 100% 60%;
+    --chart-2: 258 90% 66%;
+    --chart-3: 349 85% 50%;
+    --chart-4: 258 70% 55%;
+    --chart-5: 349 90% 45%;
   }
 }
 
@@ -66,7 +43,6 @@
   }
 
   body {
-    /* Switched to a more premium font-stack and cleaner base styles */
     @apply bg-background text-foreground font-sans antialiased tracking-tight;
   }
 }
@@ -100,19 +76,51 @@
       transform: translateY(0);
     }
   }
+
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2.5s ease-in-out infinite;
+  }
+
+  @keyframes dash {
+    to {
+      stroke-dashoffset: -200;
+    }
+  }
+
+  .animate-dash {
+    stroke-dasharray: 6 8;
+    animation: dash 8s linear infinite;
+  }
 }
 
-/* Custom styles for the high-end security aesthetic */
+/* Custom styles for the dark security aesthetic */
 .hero-gradient {
-  background: radial-gradient(circle at top right, rgba(153, 0, 18, 0.05), transparent),
-    radial-gradient(circle at bottom left, rgba(153, 0, 18, 0.02), transparent);
+  background: radial-gradient(circle at 15% 10%, rgba(124, 58, 237, 0.18), transparent 45%),
+    radial-gradient(circle at 85% 20%, rgba(255, 43, 77, 0.14), transparent 45%),
+    radial-gradient(circle at 50% 100%, rgba(124, 58, 237, 0.1), transparent 50%);
 }
 
 .text-balance {
   text-wrap: balance;
 }
 
-/* Updated scrollbar to match wine red */
+.brand-gradient-text {
+  background: linear-gradient(90deg, #ff2b4d 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -122,9 +130,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #990012;
+  background: #ff2b4d;
+  border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #7a000e;
+  background: #d4173a;
 }
