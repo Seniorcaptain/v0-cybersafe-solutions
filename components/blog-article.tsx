@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { readFile } from "node:fs/promises"
 import path from "node:path"
-import { ArrowLeft, ArrowUpRight, Download, ShieldCheck } from "lucide-react"
+import { ArrowLeft, ArrowUpRight, ShieldCheck } from "lucide-react"
 
 type Section = { heading: string; body: string; bullets?: string[] }
 
@@ -50,7 +50,6 @@ export async function BlogArticle({ eyebrow, title, description, readTime, secti
           <div className="overflow-hidden border border-border bg-card shadow-2xl shadow-black/20">
             <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border bg-background px-6 py-5 md:px-10">
               <div><p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">Practical guidance</p><p className="mt-1 text-sm text-muted-foreground">A structured reference for your security team</p></div>
-              <a href={pdfUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2 text-sm font-semibold transition-colors hover:border-primary hover:text-primary"><Download className="h-4 w-4" aria-hidden="true" /> View source guide</a>
             </div>
             <div className="px-6 py-12 md:px-16 md:py-16">
               <div className="mb-14 border-b border-border pb-10"><p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">Executive briefing</p><h2 className="mt-3 font-serif text-3xl font-semibold md:text-4xl">What this guide covers</h2><p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">Use this guide as a working document: read it end to end, share it with the owners of each control, and turn each recommendation into evidence your organization can demonstrate.</p></div>
