@@ -1,6 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { usePathname, useRouter } from "next/navigation"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Shield, Menu, X, Phone, Mail, ExternalLink } from "lucide-react"
@@ -19,6 +21,9 @@ export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("")
   const { addNotification } = useNotifications()
+  const pathname = usePathname()
+  const router = useRouter()
+  const isHome = pathname === "/"
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,6 +49,11 @@ export default function Navigation() {
   }, [])
 
   const scrollToSection = (href: string) => {
+    if (!isHome) {
+      router.push(`/${href}`)
+      setIsMobileMenuOpen(false)
+      return
+    }
     const element = document.querySelector(href)
     if (element) {
       element.scrollIntoView({ behavior: "smooth" })
@@ -98,6 +108,14 @@ export default function Navigation() {
                 {link.label}
               </button>
             ))}
+            <Link
+              href="/blog"
+              className={`text-[13px] font-medium tracking-tight transition-all duration-300 ${
+                pathname?.startsWith("/blog") ? "text-[#ff2b4d]" : "text-gray-400 hover:text-white"
+              }`}
+            >
+              Insights
+            </Link>
           </div>
 
           {/* Desktop CTA */}
@@ -158,6 +176,17 @@ export default function Navigation() {
                         <span className="text-sm font-medium">{link.label}</span>
                       </button>
                     ))}
+                    <Link
+                      href="/blog"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`flex items-center w-full px-4 py-3 text-left rounded-lg transition-all duration-200 ${
+                        pathname?.startsWith("/blog")
+                          ? "text-[#ff2b4d] bg-[#ff2b4d]/10"
+                          : "text-gray-300 hover:text-white hover:bg-white/5"
+                      }`}
+                    >
+                      <span className="text-sm font-medium">Insights</span>
+                    </Link>
                   </div>
 
                   {/* Mobile Contact Info */}
