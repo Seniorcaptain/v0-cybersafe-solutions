@@ -1,0 +1,237 @@
+- Context: This document is the first page of a guide from Digital Asset Defenders titled "CBK Cybersecurity Guidelines in 2026: Reading the New Regulatory Stack". It provides an introduction to the evolving cybersecurity regulatory landscape in Kenya for financial institutions.
+- Text: CBK Cybersecurity Guidelines in 2026:
+Reading the New Regulatory Stack
+How the 2017 and 2019 guidelines, the 2024 critical infrastructure regulations, and
+a new national cyber agency now fit together
+A Digital Asset Defenders Deep-Dive Guide | Updated August 2026
+Introduction
+Kenyan banks and payment service providers no longer answer to a single cybersecurity guideline —
+they sit inside a stack of overlapping regimes that has grown substantially since 2024. The Central Bank
+of Kenya (CBK) is actively harmonising its Commercial Banks Cybersecurity Guidelines (2017) and
+Guidelines on Cybersecurity for Payment Service Providers (2019) with the Computer Misuse and
+Cybercrimes (Critical Information Infrastructure and Cybersecurity) Regulations, 2024 and, as of
+mid-2026, a new national cybersecurity agency has entered the picture as well. This guide interprets
+what that stack means in practice and how to build a compliance programme that actually holds up
+against it.
+The Regulatory Stack, Piece by Piece
+Instrument
+What it covers
+Commercial Banks Cybersecurity
+Guidelines, 2017
+Baseline risk-based cybersecurity framework for licensed banks:
+governance, incident reporting, independent testing
+Guidelines on Cybersecurity for Payment Equivalent framework for PSPs, tied explicitly to the National Payment
+Service Providers, 2019
+System Act 2011
+Computer Misuse and Cybercrimes
+(Critical Information Infrastructure and
+Cybersecurity) Regulations, 2024
+National Cybersecurity Agency gazette
+order, July 2026
+Designates critical information infrastructure (banks included), sets
+breach-notification and audit powers, establishes sector-level Cyber
+Security Operations Centres
+Creates an 11-member national board with authority over critical
+infrastructure across sectors, overlapping existing regulator mandates
+CBK's own communications describe this explicitly as harmonisation in progress: the 2017 and 2019
+guidelines are being aligned with the 2024 regulations rather than replaced outright, which means banks
+and PSPs should expect obligations from both layers to apply simultaneously rather than the newer
+instrument superseding the older ones.
+New Institutions You Now Answer To
+Digital Asset Defenders | digitalassetdefenders.com | Security@digitalassetdefenders.com
+Page 1
+- Images: There are no image descriptions necessary for this page as it contains only text and a table.
+
+- Context: This page details the core cybersecurity requirements from the Central Bank of Kenya (CBK), focusing on aspects like data protection, incident reporting, and compliance with regulations. It also outlines the structure and responsibilities of cybersecurity units within the banking sector.
+- Text: THE CENTRAL BANK OF KENYA (CBK) REQUIREMENTS FOR SAFE AND SOUND DIGITAL BANKING OPERATIONS AND CYBERSECURITY GUIDELINES FOR BANKING SECTOR REGULATED INSTITUTIONS
+PREAMBLE
+This Guideline is issued under Section 74 of the Banking Act, Cap 488 (the Act). It applies to all banking sector regulated institutions (institutions)
+which include commercial banks, development banks, mortgage finance companies, and other deposit-taking institutions, and excludes microfinance
+banks.
+It is a requirement for all institutions to have a robust cybersecurity framework that is aligned with the current and emerging cyber threats. Institutions
+are therefore required to put in place a cybersecurity framework that meets the minimum standards and controls outlined in this Guideline.
+The Guideline sets out the CBK's expectations on the minimum cybersecurity controls that institutions must implement to manage the cyber risks that
+they face. The Guideline is structured to enhance institutions' cybersecurity posture and is not an exhaustive list of all cybersecurity controls that
+institutions are required to implement.
+The Guideline's primary objective is to protect the confidentiality, integrity and availability of data and systems within the banking sector.
+1. GENERAL PROVISIONS
+1.1. Cybersecurity Framework and Governance
+Institutions are required to establish a comprehensive cybersecurity framework that aligns with their business objectives and risk appetite. The
+framework should be approved by the Board of Directors and actively overseen by senior management. Key elements include:
+A. Board and Senior Management Oversight:
+The Board of Directors is ultimately responsible for the institution's cybersecurity posture. This includes:
+* Approving cybersecurity policies and strategies.
+* Ensuring adequate resources are allocated for cybersecurity.
+* Reviewing cybersecurity risk assessments and audit reports.
+* Overseeing the implementation of cybersecurity controls.
+B. Cybersecurity Policy:
+Institutions must develop and maintain a formal cybersecurity policy that addresses:
+* Roles and responsibilities for cybersecurity.
+* Acceptable use of information systems.
+* Data classification and handling.
+* Incident response procedures.
+* Business continuity and disaster recovery.
+* Third-party risk management.
+C. Risk Management:
+Institutions must implement a robust cybersecurity risk management process that includes:
+* Regular identification and assessment of cyber risks.
+* Mitigation of identified risks through appropriate controls.
+* Continuous monitoring of the cyber threat landscape.
+* Periodic review and updating of risk assessments.
+D. Information Security Management System (ISMS):
+Institutions should establish and maintain an ISMS based on international standards such as ISO 27001. The ISMS should cover:
+* Asset management.
+* Access control.
+* Cryptography.
+* Physical and environmental security.
+* Operations security.
+* Communications security.
+* Supplier relationships.
+* Incident management.
+* Business continuity management.
+* Compliance.
+E. Awareness and Training:
+Institutions must provide regular cybersecurity awareness and training programs for all employees. This training should cover:
+* Phishing and social engineering threats.
+* Secure use of email and internet.
+* Data protection and privacy.
+* Incident reporting procedures.
+F. Third-Party Risk Management:
+Institutions must have a comprehensive program for managing the cybersecurity risks associated with third-party service providers. This includes:
+* Due diligence before engaging third parties.
+* Contractual requirements for cybersecurity.
+* Ongoing monitoring of third-party security performance.
+* Incident reporting and response coordination with third parties.
+1.2. Data Protection and Privacy
+Institutions must comply with all applicable data protection and privacy laws and regulations. Key requirements include:
+A. Data Minimization:
+Collect and process only the personal data that is necessary for the specified purpose.
+B. Data Security:
+Implement appropriate technical and organizational measures to protect personal data against unauthorized access, loss, or destruction.
+C. Data Subject Rights:
+Establish processes to facilitate the exercise of data subject rights, such as access, rectification, and erasure of personal data.
+D. Data Breach Notification:
+Have a clear procedure for notifying the relevant authorities and affected individuals in case of a data breach.
+1.3. Incident Reporting and Response
+Institutions must establish a robust incident reporting and response capability. This includes:
+A. Incident Response Plan:
+Develop and maintain a comprehensive incident response plan that outlines procedures for detecting, analyzing, containing, eradicating, and recovering from security incidents.
+B. Incident Detection and Monitoring:
+Implement systems and processes for early detection and monitoring of security incidents.
+C. Reporting to CBK:
+Institutions are required to report cybersecurity incidents to the CBK in accordance with the reporting timelines and formats specified by the CBK.
+D. Post-Incident Review:
+Conduct a post-incident review to identify lessons learned and implement improvements to prevent future incidents.
+1.4. Business Continuity and Disaster Recovery
+Institutions must have robust business continuity and disaster recovery plans in place to ensure the availability of critical services in the event of a disruption. This includes:
+A. Business Impact Analysis (BIA):
+Conduct regular BIAs to identify critical business functions and their dependencies.
+B. Recovery Time Objectives (RTOs) and Recovery Point Objectives (RPOs):
+Define RTOs and RPOs for critical systems and services.
+C. Disaster Recovery Plan (DRP):
+Develop and test a DRP to ensure timely recovery of critical systems and data.
+D. Regular Testing and Exercising:
+Conduct regular testing and exercising of business continuity and disaster recovery plans.
+1.5. Third-Party Service Provider Management
+Institutions must have a robust framework for managing the risks associated with third-party service providers. This includes:
+A. Due Diligence:
+Conduct thorough due diligence on all third-party service providers before engaging their services.
+B. Contractual Safeguards:
+Ensure that contracts with third-party service providers include appropriate cybersecurity clauses and service level agreements.
+C. Ongoing Monitoring:
+Continuously monitor the security posture and performance of third-party service providers.
+D. Exit Strategy:
+Have a clear exit strategy for terminating services with third-party providers.
+1.6. Technology and Infrastructure Security
+Institutions must implement appropriate technical controls to secure their technology and infrastructure. This includes:
+A. Network Security:
+Implement firewalls, intrusion detection and prevention systems, and network segmentation to protect the network.
+B. Endpoint Security:
+Deploy antivirus software, endpoint detection and response (EDR) solutions, and regular patching of endpoints.
+C. Vulnerability Management:
+Implement a continuous vulnerability scanning and management program to identify and remediate vulnerabilities.
+D. Access Control:
+Implement strong access control mechanisms, including multi-factor authentication (MFA), role-based access control (RBAC), and the principle of least privilege.
+E. Encryption:
+Encrypt sensitive data at rest and in transit.
+F. Secure Software Development:
+Ensure that software development practices incorporate security by design and secure coding principles.
+1.7. Cloud Security
+Institutions utilizing cloud services must ensure that cloud security is adequately addressed. This includes:
+A. Cloud Security Policy:
+Develop a cloud security policy that outlines responsibilities and controls for cloud environments.
+B. Shared Responsibility Model:
+Understand and manage the shared responsibility model for security with cloud service providers.
+C. Data Governance in the Cloud:
+Ensure appropriate data governance and protection measures are in place for data stored in the cloud.
+D. Vendor Risk Management:
+Conduct thorough due diligence and ongoing monitoring of cloud service providers.
+1.8. Security Operations Centre (SOC)
+Institutions are encouraged to establish or leverage a Security Operations Centre (SOC) to enhance their cybersecurity monitoring and response capabilities. The SOC should be responsible for:
+A. Threat Monitoring and Detection:
+Proactively monitor for security threats and anomalies.
+B. Incident Triage and Analysis:
+Analyze security alerts and triage potential incidents.
+C. Incident Response:
+Coordinate and execute incident response activities.
+D. Security Orchestration, Automation, and Response (SOAR):
+Utilize SOAR capabilities to automate repetitive security tasks.
+E. Threat Intelligence:
+Leverage threat intelligence to inform security operations and improve defenses.
+1.9. Regular Audits and Reviews
+Institutions must conduct regular internal and external audits of their cybersecurity controls and processes. Audit findings should be addressed promptly, and remediation efforts should be tracked.
+1.10. Compliance with CBK Directives
+Institutions must ensure full compliance with all directives, circulars, and guidelines issued by the CBK on cybersecurity and digital banking.
+The CBK reserves the right to issue further directives or amendments to this Guideline as it deems necessary to address evolving risks and regulatory requirements.
+Page 1 of 3
+Digital Asset Defenders | digitalassetdefenders.com | Security@digitalassetdefenders.com
+Page 2
+- Images: None
+
+- Context: This page outlines the key requirements for building a CBK-compliant cybersecurity program, focusing on risk-based frameworks, vulnerability management, third-party risk, and independent assessments. It also provides practical steps for achieving compliance and details how Digital Asset Defenders can assist.
+- Text: • Risk-based information security framework — documented policy, risk assessment methodology, business continuity plan, and incident response plan.
+• Vulnerability and patch management — regular vulnerability scanning, risk-based prioritisation, and emergency patch deployment within 24–48 hours for critical findings.
+• Formal change management — all patches and fixes must go through a documented change control process, not ad hoc deployment.
+• Third-party risk management — vendors and service providers must be held to the same patch and vulnerability management standards as the institution itself.
+• Independent testing — institutions are expected to commission at least one independent cyber threat assessment per year, alongside regular penetration testing and, for larger institutions, red team exercises.
+• Quarterly incident reporting to CBK — using CBK's prescribed reporting format, covering the occurrence and handling of cybersecurity incidents during the period.
+• Zero trust direction — CBK has established a regulatory framework encouraging a move away from perimeter-based security toward continuous verification.
+• Board-level oversight — the board must receive and act on the findings of independent assessments, not merely receive them for information.
+Building a CBK-Compliant Programme
+1 Maintain a centralised, continuously updated inventory of all IT assets — you cannot patch or segment what you haven't inventoried.
+2 Deploy automated vulnerability scanning across that inventory, covering missing patches, misconfigurations, and known CVEs.
+3 Prioritise remediation using a risk-based method such as CVSS combined with exploit-likelihood scoring (EPSS), rather than working through findings in the order a scanner lists them.
+4 Maintain detailed audit trails for every patch, configuration change, and security action — this is what both CBK and, separately, the ODPC will ask for first in an inquiry.
+5 Run regular, methodology-driven penetration testing rather than an annual check-box test.
+6 Commission an independent cyber threat assessment at least annually and route the findings to the board.
+7 Align your CBK quarterly incident reporting with your DPA 72-hour breach notification workflow — a single incident at a bank or PSP will very often trigger both obligations at once, and building one incident response process that satisfies both timelines avoids duplicated, inconsistent reporting under pressure.
+8 Extend all of the above to critical third-party vendors through contractual security requirements and periodic assessment.
+How Digital Asset Defenders Can Help
+Digital Asset Defenders | digitalassetdefenders.com | Security@digitalassetdefenders.com
+Page 3
+- Images: None.
+
+- Context: This page outlines cybersecurity compliance areas, details how Digital Asset Defenders assist financial institutions in navigating Kenya's evolving regulatory landscape, and provides a list of relevant sources and further reading on cybersecurity in Kenya.
+- Text: • CBK cybersecurity compliance assessments against the harmonised 2017/2019/2024 requirements
+• Vulnerability and patch management programme design
+• Penetration testing and red team exercises
+• Zero trust architecture design and implementation
+• Incident response capability development, including a joint CBK/DPA reporting workflow
+• Third-party and vendor risk management programmes
+
+The regulatory stack Kenyan financial institutions now operate under is more layered than it was even two years ago, and the threat data explains why regulators keep tightening it. Digital Asset Defenders helps banks, PSPs, and fintechs build a single, evidence-based security programme that satisfies CBK, the ODPC, and whichever national body ultimately takes shape around the 2026 gazette order — rather than juggling separate compliance tracks for each. Contact us to assess where your current programme stands.
+
+Sources & Further Reading
+• Central Bank of Kenya, "Establishment of Banking Sector Cyber Security Operations Centre", press release
+• Central Bank of Kenya, Guidance Note on Cybersecurity for the Banking Sector, 2017
+• Central Bank of Kenya, Guidelines on Cybersecurity for Payment Service Providers, 2019
+• Computer Misuse and Cybercrimes (Critical Information Infrastructure and Cybersecurity) Regulations, 2024
+• CyberSpace Chronicles, "Kenya National Cybersecurity Agency Order 2026 Explained", July 2026
+• Communications Authority of Kenya / National KE-CIRT/CC, quarterly Cyber Security Reports, FY2025/26
+• The Star, "2025 in review: Kenya's cybersecurity journey from threats to strategy"
+• Capital FM Africa / East African Herald, "Cyber threats surge 441pc to 4.56bn on digital growth", April 2026
+• Xcobean, "Kenya Cloud & Data Protection Compliance 2026"
+
+Digital Asset Defenders | digitalassetdefenders.com | Security@digitalassetdefenders.com
+Page 4
+- Images: No images present.
