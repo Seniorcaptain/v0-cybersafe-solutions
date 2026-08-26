@@ -8,6 +8,11 @@ interface ContactPayload {
   email: string
   company?: string
   phone?: string
+  services?: string
+  framework?: string
+  testingApproach?: string
+  environment?: string
+  concerns?: string
   message: string
   type?: string // e.g. "Demo request", "Free scan", "General inquiry"
 }
@@ -34,7 +39,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, message: "Invalid request body." }, { status: 400 })
   }
 
-  const { name, email, company, phone, message, type } = body
+  const { name, email, company, phone, services, framework, testingApproach, environment, concerns, message, type } = body
 
   if (!name || !email || !message) {
     return NextResponse.json(
@@ -88,6 +93,11 @@ export async function POST(request: Request) {
         `Email: ${email}`,
         company ? `Company: ${company}` : null,
         phone ? `Phone: ${phone}` : null,
+        services ? `Services needed: ${services}` : null,
+        framework ? `Primary framework: ${framework}` : null,
+        testingApproach ? `Testing approach: ${testingApproach}` : null,
+        environment ? `Environment: ${environment}` : null,
+        concerns ? `Top security concerns: ${concerns}` : null,
         type ? `Type: ${type}` : null,
         "",
         "Message:",
@@ -102,6 +112,11 @@ export async function POST(request: Request) {
           <p><strong>Email:</strong> ${escapeHtml(email)}</p>
           ${company ? `<p><strong>Company:</strong> ${escapeHtml(company)}</p>` : ""}
           ${phone ? `<p><strong>Phone:</strong> ${escapeHtml(phone)}</p>` : ""}
+          ${services ? `<p><strong>Services needed:</strong> ${escapeHtml(services)}</p>` : ""}
+          ${framework ? `<p><strong>Primary framework:</strong> ${escapeHtml(framework)}</p>` : ""}
+          ${testingApproach ? `<p><strong>Testing approach:</strong> ${escapeHtml(testingApproach)}</p>` : ""}
+          ${environment ? `<p><strong>Environment:</strong> ${escapeHtml(environment)}</p>` : ""}
+          ${concerns ? `<p><strong>Top security concerns:</strong> ${escapeHtml(concerns).replace(/\n/g, "<br/>")}</p>` : ""}
           ${type ? `<p><strong>Type:</strong> ${escapeHtml(type)}</p>` : ""}
           <p><strong>Message:</strong></p>
           <p>${escapeHtml(message).replace(/\n/g, "<br/>")}</p>
