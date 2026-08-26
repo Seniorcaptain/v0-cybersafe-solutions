@@ -1,4 +1,6 @@
 import Link from "next/link"
+import { readFile } from "node:fs/promises"
+import path from "node:path"
 import { ArrowLeft, ArrowUpRight, Download, ShieldCheck } from "lucide-react"
 
 type Section = { heading: string; body: string; bullets?: string[] }
@@ -12,7 +14,10 @@ type BlogArticleProps = {
   pdfUrl: string
 }
 
-export function BlogArticle({ eyebrow, title, description, readTime, sections, pdfUrl }: BlogArticleProps) {
+export async function BlogArticle({ eyebrow, title, description, readTime, sections, pdfUrl }: BlogArticleProps) {
+  const source = await readFile(path.join(process.cwd(), "public", pdfUrl), "utf8").catch(() => "")
+  const paragraphs = source.split(/\n\s*\n/).map((item) => item.replace(/\s+/g, " ").trim()).filter(Boolean)
+
   return (
     <main className="min-h-screen bg-background text-foreground">
       <header className="border-b border-border bg-background/90 backdrop-blur">
@@ -49,12 +54,13 @@ export function BlogArticle({ eyebrow, title, description, readTime, sections, p
             </div>
             <div className="px-6 py-12 md:px-16 md:py-16">
               <div className="mb-14 border-b border-border pb-10"><p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">Executive briefing</p><h2 className="mt-3 font-serif text-3xl font-semibold md:text-4xl">What this guide covers</h2><p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">Use this guide as a working document: read it end to end, share it with the owners of each control, and turn each recommendation into evidence your organization can demonstrate.</p></div>
-              <div className="space-y-16">
-                {sections.map((section, index) => (
-                  <section key={section.heading} className="grid gap-6 md:grid-cols-[72px_1fr]">
-                    <div className="font-mono text-sm text-primary">{String(index + 1).padStart(2, "0")}</div>
-                    <div><h2 className="mb-5 font-serif text-2xl font-semibold md:text-3xl">{section.heading}</h2><p className="max-w-3xl text-base leading-8 text-muted-foreground">{section.body}</p>{section.bullets && <ul className="mt-7 grid gap-3 border-l-2 border-primary/40 pl-6 text-sm leading-7 text-muted-foreground">{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}</div>
-                  </section>
+              <div className="space-y-8">
+                {paragraphs.length > 0 ? paragraphs.map((paragraph, index) => {
+                  const bullet = paragraph.replace(/^[•*-]\s*/, "")
+                  const isBullet = bullet !== paragraph
+                  return isBullet ? <p key={index} className="pl-8 text-base leading-8 text-muted-foreground before:mr-3 before:text-primary before:content-['•']">{bullet}</p> : <p key={index} className={index === 0 ? "text-lg font-medium leading-8 text-foreground" : "text-base leading-8 text-muted-foreground"}>{paragraph}</p>
+                }) : sections.map((section, index) => (
+                  <section key={section.heading} className="grid gap-6 md:grid-cols-[72px_1fr]"><div className="font-mono text-sm text-primary">{String(index + 1).padStart(2, "0")}</div><div><h2 className="mb-5 font-serif text-2xl font-semibold md:text-3xl">{section.heading}</h2><p className="max-w-3xl text-base leading-8 text-muted-foreground">{section.body}</p>{section.bullets && <ul className="mt-7 grid gap-3 border-l-2 border-primary/40 pl-6 text-sm leading-7 text-muted-foreground">{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}</div></section>
                 ))}
               </div>
             </div>
