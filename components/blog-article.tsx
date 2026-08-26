@@ -9,9 +9,10 @@ type BlogArticleProps = {
   description: string
   readTime: string
   sections: Section[]
+  pdfUrl: string
 }
 
-export function BlogArticle({ eyebrow, title, description, readTime, sections }: BlogArticleProps) {
+export function BlogArticle({ eyebrow, title, description, readTime, sections, pdfUrl }: BlogArticleProps) {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <header className="border-b border-border">
@@ -41,6 +42,14 @@ export function BlogArticle({ eyebrow, title, description, readTime, sections }:
         </section>
 
         <section className="mx-auto max-w-4xl px-6 py-16 md:px-12 md:py-24">
+          <div className="mb-16 rounded-2xl border border-primary/25 bg-card p-4 md:p-6">
+            <div className="mb-4 flex items-center justify-between gap-4">
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-primary">Full guide · original PDF</p>
+              <a href={pdfUrl} target="_blank" rel="noreferrer" className="text-sm font-semibold text-primary hover:underline">Open PDF</a>
+            </div>
+            <iframe src={pdfUrl} title={`${title} — full guide`} className="h-[75vh] min-h-[640px] w-full rounded-lg border-0 bg-card p-4 text-foreground" />
+          </div>
+
           <div className="space-y-16">
             {sections.map((section) => (
               <section key={section.heading}>
