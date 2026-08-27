@@ -51,7 +51,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 mb-14 pb-10 border-b border-white/10">
-          
+          <a
             href={post.pdf}
             download
             className="inline-flex items-center justify-center gap-2 bg-[#ff2b4d] hover:bg-[#d4173a] text-white px-6 py-3 rounded-lg font-semibold text-sm transition-all"
@@ -59,7 +59,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             <Download className="w-4 h-4" />
             Download the full PDF guide
           </a>
-          
+          <a
             href="/#contact"
             className="inline-flex items-center justify-center gap-2 border border-white/20 hover:bg-white/5 text-white px-6 py-3 rounded-lg font-semibold text-sm transition-all"
           >
@@ -75,7 +75,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           <p className="text-gray-400 mb-6 max-w-lg mx-auto">
             Our team can benchmark where you currently stand and build a prioritised remediation plan.
           </p>
-          
+          <a
             href="/#contact"
             className="inline-flex items-center gap-2 bg-[#ff2b4d] hover:bg-[#d4173a] text-white px-7 py-3 rounded-lg font-semibold text-sm transition-all"
           >
