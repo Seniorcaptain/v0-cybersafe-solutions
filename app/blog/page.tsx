@@ -24,7 +24,7 @@ export default function BlogIndexPage() {
           Africa. Clear context, actionable steps, and the regulatory detail your team needs to make
           confident decisions.
         </p>
-        
+        <a
           href="/#contact"
           className="inline-flex items-center gap-2 text-[#ff6b81] font-semibold hover:text-white transition-colors"
         >
