@@ -25,8 +25,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   const otherPosts = blogPosts.filter((p) => p.slug !== post.slug)
 
   return (
-    <main className="bg-[#08080c] min-h-screen pt-32 pb-24">
-      <article className="max-w-3xl mx-auto px-6 md:px-12">
+    <main className="min-h-screen bg-background pb-24 pt-28">
+      <article className="mx-auto max-w-6xl px-6 md:px-12">
         <Link
           href="/blog"
           className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors mb-8"
@@ -35,14 +35,15 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           Back to Insights
         </Link>
 
-        <div className="flex items-center gap-2 mb-5">
+        <div className="mb-5 flex items-center gap-3">
+          <span className="h-px w-10 bg-primary" />
           <span className="text-[11px] font-semibold uppercase tracking-wider text-[#ff2b4d] bg-[#ff2b4d]/10 border border-[#ff2b4d]/20 rounded-full px-3 py-1">
             {post.tag}
           </span>
           <span className="text-[11px] uppercase tracking-wider text-gray-500">{post.category}</span>
         </div>
 
-        <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-5 text-balance">
+        <h1 className="max-w-4xl text-balance font-serif text-4xl font-bold leading-tight tracking-tight text-foreground md:text-6xl">
           {post.fullTitle}
         </h1>
         <p className="text-lg md:text-xl text-gray-400 leading-relaxed mb-5">{post.subtitle}</p>
