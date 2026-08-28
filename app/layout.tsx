@@ -16,7 +16,11 @@ export const metadata: Metadata = {
     "cybersecurity consultant, penetration testing, PCI DSS compliance, ISO 27001 certification, data protection, security audit, threat intelligence, compliance consulting, fintech security, Kenya cybersecurity, East Africa security",
   generator: "v0.app",
   icons: {
-    icon: "/icon.svg",
+    icon: [
+      { url: "/security-shield.png", type: "image/png" },
+    ],
+    shortcut: "/security-shield.png",
+    apple: "/security-shield.png",
   },
   openGraph: {
     type: "website",
@@ -26,6 +30,14 @@ export const metadata: Metadata = {
     description:
       "Premium cybersecurity services for regulated enterprises. PCI DSS, ISO 27001, Kenya DPA compliance. Pentesting, audits, and continuous threat intelligence.",
     siteName: "Digital Asset Defenders",
+    images: [
+      {
+        url: "https://digitalassetdefenders.com/security-shield.png",
+        width: 512,
+        height: 512,
+        alt: "Digital Asset Defenders security shield",
+      },
+    ],
   },
   alternates: {
     canonical: "https://digitalassetdefenders.com",
@@ -82,7 +94,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
               name: "Digital Asset Defenders",
-              image: "https://digitalassetdefenders.com/icon.svg",
+              image: "https://digitalassetdefenders.com/security-shield.png",
               description:
                 "Enterprise cybersecurity consultancy specializing in PCI DSS, ISO 27001, and Kenya DPA compliance",
               url: "https://digitalassetdefenders.com",
@@ -120,7 +132,7 @@ export default function RootLayout({
               "@type": "Organization",
               name: "Digital Asset Defenders",
               url: "https://digitalassetdefenders.com",
-              logo: "https://digitalassetdefenders.com/icon.svg",
+              logo: "https://digitalassetdefenders.com/security-shield.png",
               sameAs: [
                 "https://linkedin.com/company/digital-asset-defenders",
               ],
