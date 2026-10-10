@@ -24,6 +24,7 @@ export default function Navigation() {
   const pathname = usePathname()
   const router = useRouter()
   const isHome = pathname === "/"
+  const isBlog = pathname?.startsWith("/blog")
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,6 +79,8 @@ export default function Navigation() {
       window.location.href = "mailto:Security@digitalassetdefenders.com"
     }
   }
+
+  if (isBlog) return null
 
   return (
     <nav
