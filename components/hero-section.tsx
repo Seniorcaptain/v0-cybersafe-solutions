@@ -2,179 +2,63 @@
 
 import type React from "react"
 import { useState } from "react"
+import { ArrowUpRight, CheckCircle2, Loader2, ShieldCheck } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ArrowRight, ShieldCheck, Search, TriangleAlert, Loader2, CheckCircle2 } from "lucide-react"
 
 export default function HeroSection() {
   const [email, setEmail] = useState("")
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
     if (!email) return
     setStatus("loading")
     try {
-      const res = await fetch("/api/contact", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: "Website visitor",
-          email,
-          company: "",
-          message: "Requested a demo / consultation from the homepage hero form.",
-          type: "Demo request",
-        }),
+        body: JSON.stringify({ name: "Website visitor", email, message: "Requested a consultation from the homepage hero form.", type: "Consultation request" }),
       })
-      if (!res.ok) throw new Error("Request failed")
-      setStatus("success")
+      if (!response.ok) throw new Error("Request failed")
       setEmail("")
+      setStatus("success")
     } catch {
       setStatus("error")
     }
   }
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-[#08080c] pt-24 pb-16">
-      {/* Ambient gradient wash */}
-      <div className="absolute inset-0 hero-gradient pointer-events-none" />
+    <section id="hero" className="relative isolate min-h-screen overflow-hidden bg-[#050506] pt-28 text-white">
+      <div className="absolute inset-0 opacity-70 [background-image:linear-gradient(rgba(255,255,255,.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.035)_1px,transparent_1px)] [background-size:72px_72px]" />
+      <div className="absolute -right-40 top-20 h-[620px] w-[620px] rounded-full bg-[#d9163a]/10 blur-[140px]" />
+      <div className="absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-[#d9163a]/10 blur-[120px]" />
 
-      {/* Decorative winding-path graphic (desktop only) */}
-      <div className="absolute inset-0 hidden lg:block pointer-events-none overflow-hidden">
-        <svg
-          viewBox="0 0 1400 900"
-          className="absolute -bottom-20 -right-32 w-[1100px] h-[900px] opacity-90"
-          fill="none"
-        >
-          <path
-            d="M1350 120 L1050 120 L1050 380 L800 380 L800 620 L560 620 L560 860"
-            stroke="url(#violetPath)"
-            strokeWidth="26"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="animate-dash"
-          />
-          <path
-            d="M1400 480 L1140 480 L1140 700 L900 700 L900 900"
-            stroke="url(#orangePath)"
-            strokeWidth="20"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity="0.7"
-          />
-          <defs>
-            <linearGradient id="violetPath" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#7c3aed" />
-              <stop offset="100%" stopColor="#ff2b4d" />
-            </linearGradient>
-            <linearGradient id="orangePath" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#ff2b4d" />
-              <stop offset="100%" stopColor="#fb923c" />
-            </linearGradient>
-          </defs>
-        </svg>
-
-        {/* Floating icon cards */}
-        <div className="absolute right-[20%] top-[38%] w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-violet-700 shadow-2xl shadow-violet-900/40 flex items-center justify-center rotate-[-6deg]">
-          <ShieldCheck className="w-7 h-7 text-white" />
-        </div>
-        <div className="absolute right-[24%] top-[47%] w-16 h-16 rounded-2xl bg-[#15151c] border border-white/10 shadow-2xl flex items-center justify-center rotate-[4deg]">
-          <Search className="w-6 h-6 text-white/80" />
-        </div>
-        <div className="absolute right-[17%] top-[56%] w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff2b4d] to-orange-500 shadow-2xl shadow-red-900/40 flex items-center justify-center rotate-[3deg]">
-          <TriangleAlert className="w-7 h-7 text-white" />
-        </div>
-
-        <span className="absolute right-[6%] top-[16%] text-[11px] tracking-widest uppercase text-white/40 font-mono rotate-[-8deg]">
-          legitimate traffic
-        </span>
-        <span className="absolute right-[8%] top-[63%] text-[11px] tracking-widest uppercase text-[#ff6b81] font-mono rotate-[-6deg]">
-          threat detected
-        </span>
-      </div>
-
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12">
-        <div className="max-w-3xl">
-          <p className="inline-flex items-center gap-2 text-xs md:text-sm font-semibold text-[#ff6b81] uppercase tracking-widest mb-6 border border-[#ff2b4d]/30 bg-[#ff2b4d]/5 rounded-full px-4 py-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#ff2b4d] animate-pulse-glow" />
-            Global Compliance &amp; Security Expertise
-          </p>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-6 text-balance">
-            <span className="text-white">Securing your organization </span>
-            <span className="brand-gradient-text">from day one</span>
-          </h1>
-          <p className="text-lg md:text-xl text-gray-400 leading-relaxed max-w-xl mb-10">
-            Digital Asset Defenders delivers penetration testing, security audits, and continuous threat
-            intelligence for regulated enterprises — PCI DSS, ISO 27001, and Kenya DPA compliance built in
-            from the start.
-          </p>
-
-          {/* Email capture / demo request */}
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mb-4">
-            <Input
-              type="email"
-              required
-              placeholder="Your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              disabled={status === "loading" || status === "success"}
-              className="h-12 bg-white/5 border-white/15 text-white placeholder:text-gray-500 focus-visible:ring-[#ff2b4d]/40"
-            />
-            <Button
-              type="submit"
-              disabled={status === "loading" || status === "success"}
-              className="h-12 px-6 bg-white text-black hover:bg-gray-200 font-semibold whitespace-nowrap"
-            >
-              {status === "loading" && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-              {status === "success" ? (
-                <>
-                  <CheckCircle2 className="w-4 h-4 mr-2" /> Request sent
-                </>
-              ) : (
-                <>
-                  Get a demo <ArrowRight className="w-4 h-4 ml-2" />
-                </>
-              )}
-            </Button>
-          </form>
-          {status === "success" && (
-            <p className="text-sm text-green-400 mb-2">
-              Thanks — our team will reach out from our official company email shortly.
-            </p>
-          )}
-          {status === "error" && (
-            <p className="text-sm text-red-400 mb-2">
-              Something went wrong. Email us directly at Security@digitalassetdefenders.com.
-            </p>
-          )}
-
-          <div className="flex flex-col sm:flex-row gap-4 mt-8">
-            <Button
-              variant="outline"
-              onClick={() => document.querySelector("#services")?.scrollIntoView({ behavior: "smooth" })}
-              className="border-white/20 text-white px-8 py-6 text-base font-semibold rounded-lg hover:bg-white/5 bg-transparent"
-            >
-              Explore Services
-            </Button>
-            <Button
-              variant="ghost"
-              onClick={() => document.querySelector("#threat-feed")?.scrollIntoView({ behavior: "smooth" })}
-              className="text-gray-300 px-8 py-6 text-base font-semibold hover:bg-white/5 hover:text-white"
-            >
-              View Live Threat Feed
-            </Button>
+      <div className="relative mx-auto flex min-h-[calc(100vh-7rem)] max-w-[1440px] flex-col justify-between px-6 pb-12 md:px-12 lg:pb-16">
+        <div className="grid gap-16 lg:grid-cols-[1.2fr_.8fr] lg:items-end">
+          <div className="max-w-5xl">
+            <p className="mb-8 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[.24em] text-[#ff516d]"><span className="h-2 w-2 rounded-full bg-[#ff2b4d] shadow-[0_0_18px_#ff2b4d]" /> Independent security operations / Nairobi</p>
+            <h1 className="max-w-5xl text-balance text-[clamp(3.5rem,8vw,8rem)] font-semibold leading-[.88] tracking-[-.075em]">Security is not a feature.<br /><span className="text-[#ff3657]">It is the system.</span></h1>
+            <p className="mt-10 max-w-xl text-lg leading-8 text-white/55">Digital Asset Defenders finds the gaps attackers exploit, proves what matters, and helps regulated organizations build security that holds under pressure.</p>
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <Button onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })} className="h-12 rounded-none bg-[#ff2b4d] px-7 font-semibold text-white hover:bg-[#e51f40]">Book a consultation <ArrowUpRight className="ml-2 h-4 w-4" /></Button>
+              <Button variant="outline" onClick={() => document.querySelector("#services")?.scrollIntoView({ behavior: "smooth" })} className="h-12 rounded-none border-white/20 bg-transparent px-7 text-white hover:bg-white/10">Explore capabilities</Button>
+            </div>
+            {status === "success" && <p className="mt-4 flex items-center gap-2 text-sm text-emerald-400"><CheckCircle2 className="h-4 w-4" /> Request received. We&apos;ll be in touch.</p>}
+            {status === "error" && <p className="mt-4 text-sm text-[#ff8195]">Something went wrong. Email Security@digitalassetdefenders.com.</p>}
           </div>
 
-          <div className="grid grid-cols-2 gap-8 mt-16 pt-10 border-t border-white/10 max-w-md">
-            <div>
-              <p className="text-3xl md:text-4xl font-bold brand-gradient-text">ISO 27001</p>
-              <p className="text-gray-500 mt-2 text-sm">Aligned Practice</p>
-            </div>
-            <div>
-              <p className="text-3xl md:text-4xl font-bold brand-gradient-text">PCI DSS</p>
-              <p className="text-gray-500 mt-2 text-sm">Compliance Expert</p>
-            </div>
+          <div className="border-l border-white/15 pl-6 lg:mb-2">
+            <div className="mb-10 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[.2em] text-white/40"><ShieldCheck className="h-4 w-4 text-[#ff2b4d]" /> Defense in depth / 001</div>
+            <div className="space-y-5 font-mono text-xs text-white/45"><p><span className="text-[#ff2b4d]">[01]</span> Penetration testing</p><p><span className="text-[#ff2b4d]">[02]</span> Compliance engineering</p><p><span className="text-[#ff2b4d]">[03]</span> Threat intelligence</p><p><span className="text-[#ff2b4d]">[04]</span> Incident readiness</p></div>
+            <div className="mt-12 border-t border-white/10 pt-5"><p className="font-mono text-[10px] uppercase tracking-[.2em] text-white/35">Current posture</p><p className="mt-3 text-2xl font-semibold">Always auditing<span className="text-[#ff2b4d]">.</span></p></div>
           </div>
+        </div>
+
+        <div className="mt-20 grid gap-6 border-t border-white/10 pt-6 sm:grid-cols-3">
+          <p className="font-mono text-[10px] uppercase tracking-[.18em] text-white/35">Built for regulated environments</p>
+          <p className="font-mono text-[10px] uppercase tracking-[.18em] text-white/35">PCI DSS / ISO 27001 / Kenya DPA</p>
+          <form onSubmit={handleSubmit} className="flex gap-2 sm:justify-end"><Input type="email" required placeholder="your@email.com" value={email} onChange={(event) => setEmail(event.target.value)} disabled={status === "loading" || status === "success"} className="h-9 max-w-[220px] rounded-none border-white/15 bg-white/5 text-white placeholder:text-white/30" /><Button type="submit" disabled={status === "loading" || status === "success"} size="sm" className="h-9 rounded-none bg-white text-black hover:bg-white/90">{status === "loading" ? <Loader2 className="h-4 w-4 animate-spin" /> : "Start here"}</Button></form>
         </div>
       </div>
     </section>
