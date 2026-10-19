@@ -25,11 +25,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   const otherPosts = blogPosts.filter((p) => p.slug !== post.slug)
 
   return (
-    <main className="min-h-screen bg-[#f4f1eb] pb-24 pt-28 text-[#17191f]">
+    <main className="min-h-screen bg-[#090b10] pb-24 pt-28 text-[#f4f5f7]">
       <article className="mx-auto max-w-6xl px-6 md:px-12">
         <Link
           href="/blog"
-          className="mb-10 inline-flex items-center gap-2 text-sm text-[#69655f] transition-colors hover:text-[#b48600]"
+          className="mb-10 inline-flex items-center gap-2 text-sm text-[#aab1bc] transition-colors hover:text-[#b48600]"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Insights
@@ -46,7 +46,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         <h1 className="max-w-4xl text-balance font-serif text-4xl font-bold leading-tight tracking-tight text-foreground md:text-6xl">
           {post.fullTitle}
         </h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#69655f] md:text-xl">{post.subtitle}</p>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#aab1bc] md:text-xl">{post.subtitle}</p>
         <p className="mb-8 mt-5 text-xs font-mono uppercase tracking-[0.16em] text-[#89837a]">
           A Digital Asset Defenders Deep-Dive Guide &middot; {post.updated}
         </p>

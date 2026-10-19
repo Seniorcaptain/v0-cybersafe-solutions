@@ -19,8 +19,8 @@ const cardTones = [
 
 export default function BlogIndexPage() {
   return (
-    <main className="min-h-screen bg-[#f5f1ea] text-[#17191f] pt-24 md:pt-28 pb-24">
-      <header className="border-y border-[#17191f]/15 bg-[#f5f1ea]">
+    <main className="min-h-screen bg-[#090b10] text-[#f4f5f7] pt-24 md:pt-28 pb-24">
+      <header className="border-y border-white/10 bg-[#0d1016]">
         <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-5 md:px-10 md:py-7">
           <Link href="/" className="flex items-center gap-3" aria-label="Digital Asset Defenders home">
             <span className="relative h-10 w-10 overflow-hidden rounded-full bg-[#17191f]">
@@ -42,7 +42,7 @@ export default function BlogIndexPage() {
           <h1 className="max-w-4xl text-4xl font-semibold leading-[1.05] tracking-[-0.04em] md:text-6xl lg:text-7xl">
             Practical guidance for a changing threat landscape
           </h1>
-          <p className="mt-7 max-w-2xl text-base leading-7 text-[#4e5155] md:text-lg">
+          <p className="mt-7 max-w-2xl text-base leading-7 text-[#aab1bc] md:text-lg">
             Full-length guides on the laws, standards, and controls shaping security across Kenya and East Africa.
           </p>
         </div>
@@ -50,7 +50,7 @@ export default function BlogIndexPage() {
 
       <section className="mx-auto grid max-w-[1440px] grid-cols-1 gap-6 px-6 md:grid-cols-2 md:px-10 xl:grid-cols-3" aria-label="Featured articles">
         {blogPosts.map((post, index) => (
-          <article key={post.slug} className="group flex min-h-[700px] flex-col bg-[#ebe6de] shadow-[0_1px_0_rgba(23,25,31,.12)] transition-transform duration-300 hover:-translate-y-1">
+          <article key={post.slug} className="group flex min-h-[700px] flex-col bg-[#11151d] shadow-[0_1px_0_rgba(0,0,0,.4)] transition-transform duration-300 hover:-translate-y-1">
             <Link href={`/blog/${post.slug}`} className="relative block h-[300px] overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#b48600] md:h-[340px]" aria-label={`Read ${post.title}`}>
               <div className={`absolute inset-0 bg-gradient-to-br ${cardTones[index % cardTones.length]}`} />
               <div className="absolute inset-0 opacity-25" style={{ backgroundImage: "linear-gradient(135deg, transparent 0 40%, rgba(255,255,255,.75) 40% 42%, transparent 42% 100%)" }} />
@@ -58,13 +58,13 @@ export default function BlogIndexPage() {
               <span className="absolute left-5 top-5 rounded-full border border-white/50 bg-black/20 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-sm">{post.tag}</span>
             </Link>
             <div className="flex flex-1 flex-col p-7 md:p-8">
-              <div className="flex items-center justify-between border-b border-[#17191f]/15 pb-5 text-xs text-[#66615a]">
+              <div className="flex items-center justify-between border-b border-[#17191f]/15 pb-5 text-xs text-[#aab1bc]">
                 <span>{post.updated.replace("Updated ", "")}</span>
                 <ChevronDown className="h-4 w-4 rotate-[-45deg]" aria-hidden="true" />
               </div>
-              <p className="mt-7 text-xs font-bold uppercase tracking-[0.16em] text-[#17191f]">{post.category}</p>
+              <p className="mt-7 text-xs font-bold uppercase tracking-[0.16em] text-[#f4f5f7]">{post.category}</p>
               <h2 className="mt-4 text-[2rem] font-medium leading-[1.08] tracking-[-0.04em]">{post.title}</h2>
-              <p className="mt-5 line-clamp-4 text-[15px] leading-7 text-[#55524e]">{post.description}</p>
+              <p className="mt-5 line-clamp-4 text-[15px] leading-7 text-[#b8bec8]">{post.description}</p>
               <Link href={`/blog/${post.slug}`} className="mt-auto inline-flex items-center gap-2 pt-10 text-sm font-bold underline underline-offset-4 transition-colors hover:text-[#a97a00]">
                 Read the full guide <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>
