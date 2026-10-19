@@ -48,23 +48,24 @@ export default function BlogIndexPage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-[1440px] grid-cols-1 gap-5 px-6 md:grid-cols-2 md:px-10 xl:grid-cols-4" aria-label="Featured articles">
+      <section className="mx-auto grid max-w-[1440px] grid-cols-1 gap-6 px-6 md:grid-cols-2 md:px-10 xl:grid-cols-3" aria-label="Featured articles">
         {blogPosts.map((post, index) => (
-          <article key={post.slug} className="group flex min-h-[560px] flex-col bg-[#ebe6de] transition-transform duration-300 hover:-translate-y-1">
-            <div className={`relative h-56 overflow-hidden bg-gradient-to-br ${cardTones[index % cardTones.length]}`}>
-              <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "linear-gradient(135deg, transparent 0 40%, rgba(255,255,255,.75) 40% 42%, transparent 42% 100%)" }} />
-              <Image src="/security-shield.png" alt="" fill className="object-contain p-12 opacity-90 mix-blend-multiply transition-transform duration-500 group-hover:scale-110" sizes="(max-width: 768px) 100vw, 25vw" />
+          <article key={post.slug} className="group flex min-h-[700px] flex-col bg-[#ebe6de] shadow-[0_1px_0_rgba(23,25,31,.12)] transition-transform duration-300 hover:-translate-y-1">
+            <Link href={`/blog/${post.slug}`} className="relative block h-[300px] overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#b48600] md:h-[340px]" aria-label={`Read ${post.title}`}>
+              <div className={`absolute inset-0 bg-gradient-to-br ${cardTones[index % cardTones.length]}`} />
+              <div className="absolute inset-0 opacity-25" style={{ backgroundImage: "linear-gradient(135deg, transparent 0 40%, rgba(255,255,255,.75) 40% 42%, transparent 42% 100%)" }} />
+              <Image src="/security-shield.png" alt="" fill className="object-contain p-16 opacity-90 mix-blend-multiply transition-transform duration-500 group-hover:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
               <span className="absolute left-5 top-5 rounded-full border border-white/50 bg-black/20 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-sm">{post.tag}</span>
-            </div>
-            <div className="flex flex-1 flex-col p-6 md:p-7">
-              <div className="flex items-center justify-between text-xs text-[#66615a]">
+            </Link>
+            <div className="flex flex-1 flex-col p-7 md:p-8">
+              <div className="flex items-center justify-between border-b border-[#17191f]/15 pb-5 text-xs text-[#66615a]">
                 <span>{post.updated.replace("Updated ", "")}</span>
-                <span aria-hidden="true"><ChevronDown className="h-4 w-4 rotate-[-45deg]" /></span>
+                <ChevronDown className="h-4 w-4 rotate-[-45deg]" aria-hidden="true" />
               </div>
               <p className="mt-7 text-xs font-bold uppercase tracking-[0.16em] text-[#17191f]">{post.category}</p>
-              <h2 className="mt-4 text-2xl font-medium leading-[1.1] tracking-[-0.03em]">{post.title}</h2>
-              <p className="mt-5 line-clamp-4 text-sm leading-6 text-[#55524e]">{post.description}</p>
-              <Link href={`/blog/${post.slug}`} className="mt-auto inline-flex items-center gap-2 pt-8 text-sm font-bold underline underline-offset-4 transition-colors hover:text-[#a97a00]">
+              <h2 className="mt-4 text-[2rem] font-medium leading-[1.08] tracking-[-0.04em]">{post.title}</h2>
+              <p className="mt-5 line-clamp-4 text-[15px] leading-7 text-[#55524e]">{post.description}</p>
+              <Link href={`/blog/${post.slug}`} className="mt-auto inline-flex items-center gap-2 pt-10 text-sm font-bold underline underline-offset-4 transition-colors hover:text-[#a97a00]">
                 Read the full guide <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>
             </div>
